@@ -28,7 +28,7 @@ void usage() {
 
 int main(int argc, char* argv[]) {
     ProgramOptions flags = options_parse_args(argc, argv);
-    if (flags.help) {
+    if (flags.showhelp) {
         usage();
         exit(1);
     }

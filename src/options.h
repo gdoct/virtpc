@@ -6,14 +6,14 @@
 struct ProgramOptions {
   bool debug; 
   bool silent; 
-  bool help;
+  bool showhelp;
 };
 
 static const ProgramOptions options_parse_args(int argc, char* argv[]) {
   ProgramOptions flags;
   flags.debug = false;
   flags.silent = false;
-  flags.help = false;
+  flags.showhelp = false;
 
   for (int i = 1; i < argc; i++) {
     string arg = argv[i];
@@ -25,16 +25,16 @@ static const ProgramOptions options_parse_args(int argc, char* argv[]) {
         flags.silent = true;
       }
       else if (arg == "-h" || arg == "--help") {
-        flags.help = true;
+        flags.showhelp = true;
       }
       else {
         cerr << "Invalid flag: " << arg << "\n";
-        flags.help = true;
+        flags.showhelp = true;
       }
     }
     else {
       cerr << "Invalid argument: " << arg << "\n";
-      flags.help = true;
+      flags.showhelp = true;
     }
   }
   return flags;
