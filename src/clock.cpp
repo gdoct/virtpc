@@ -7,44 +7,35 @@
 #include <chrono>
 #include <stdio.h>
 
-void Clock::registerCallback(Callback callback)
-{
+void Clock::registerCallback(Callback callback) {
     callbacks.push_back(callback);
 }
 
 // Start the clock
-void Clock::start(int interval_ms)
-{
+void Clock::start(int interval_ms) {
     running = true;
     thread = std::thread(&Clock::tick, this, interval_ms);
 }
 
 // Stop the clock
-void Clock::stop()
-{
+void Clock::stop() {
     running = false;
-    if (thread.joinable())
-    {
+    if (thread.joinable()) {
         thread.join();
     }
 }
 
-void Clock::tick(int interval_ms)
-{
-    while (running)
-    {
+void Clock::tick(int interval_ms) {
+    while (running) {
         std::this_thread::sleep_for(std::chrono::milliseconds(interval_ms));
-        for (auto &callback : callbacks)
-        {
+        for (auto &callback : callbacks) {
             callback();
         }
     }
 }
 
-void Clock::step()
-{
-    for (auto &callback : callbacks)
-    {
+void Clock::step() {
+    for (auto &callback : callbacks) {
         callback();
     }
 }

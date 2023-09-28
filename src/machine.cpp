@@ -1,36 +1,30 @@
 #include "machine.h"
 
-Machine::~Machine()
-{
+Machine::~Machine() {
     delete cpu;
     delete clock;
     delete bus;
 }
 
-Machine::Machine()
-{
+Machine::Machine() {
     bus = new Bus();
     clock = new Clock();
     cpu = new Cpu(bus, clock);
 }
 
-Cpu* Machine::GetCpu() const
-{
+Cpu* Machine::GetCpu() const {
     return cpu;
 }
 
-Bus* Machine::GetBus() const
-{
+Bus* Machine::GetBus() const {
     return bus;
 }
 
-Clock* Machine::GetClock() const
-{
+Clock* Machine::GetClock() const {
     return clock;
 }
 
-void Machine::Step()
-{
+void Machine::Step() {
     clock->step();
 }
 

@@ -7,8 +7,7 @@ Cpu::Cpu(Bus* cpubus, Clock* clock) {
     statestep = 0;
 }
 
-void Cpu::clocktick()
-{
+void Cpu::clocktick() {
     switch(state) {
         case CpuState::idle: 
         case CpuState::execute: 
