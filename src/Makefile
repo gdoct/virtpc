@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Werror -pthread -O2
+CXXFLAGS = -Wall -std=c++11 -Wextra -Werror -pthread -O2
 SRCS = $(wildcard *.cpp)
 OBJS = $(patsubst %.cpp,obj/%.o,$(SRCS))
 TARGET = virtpc
