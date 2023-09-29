@@ -1,0 +1,4 @@
+/mnt/d/Development/c++/virtpc/CMakeFiles/rebuild_cache.dir
+/mnt/d/Development/c++/virtpc/CMakeFiles/edit_cache.dir
+/mnt/d/Development/c++/virtpc/CMakeFiles/virtpc.dir
+/mnt/d/Development/c++/virtpc/CMakeFiles/objects.dir

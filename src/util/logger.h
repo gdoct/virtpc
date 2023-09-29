@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <ctime>
-
+#include <map>
 using namespace std;
 
 enum LogLevel : int {   
@@ -21,8 +21,16 @@ class Log {
         static void warn(string message);
         static void error(string message);
 
+        static void trace(string* message);
+        static void info(string* message);
+        static void warn(string* message);
+        static void error(string* message);
+
         static void set_LogLevel(LogLevel level);
         static LogLevel get_LogLevel();
+
+    private:
+       
 };
 
 #endif

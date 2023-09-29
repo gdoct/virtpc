@@ -6,8 +6,9 @@
 
 void run_vm() {
     Log::info("Creating virtual machine..");
-    Machine* m = new Machine();
-    for (int i=0; i<18; i++) {
+    auto m = new Machine();
+    for (auto i=0; i<18; i++) {
+        Log::trace("executing step");
         m->Step();
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
@@ -27,7 +28,7 @@ void usage() {
 }
 
 int main(int argc, char* argv[]) {
-    ProgramOptions flags = OptionsParser::parse_args(argc, argv);
+    auto flags = OptionsParser::parse_args(argc, argv);
     if (flags.showhelp) {
         usage();
         exit(1);
