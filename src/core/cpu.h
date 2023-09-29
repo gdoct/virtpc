@@ -1,12 +1,12 @@
 #ifndef CPU_H
 #define CPU_H
-#include "core/bus.h"
-#include "core/clock.h"
-#include "core/cpustate.h"
-#include "util/logger.h"
-#include "core/mem.h"
-#include "core/numbers.h"
-#include "core/opcodes.h"
+#include "bus.h"
+#include "clock.h"
+#include "cpustate.h"
+#include "../util/logger.h"
+#include "mem.h"
+#include "numbers.h"
+#include "opcodes.h"
 
 class Cpu {
     public:

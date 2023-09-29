@@ -28,9 +28,9 @@ Byte Cpu::fetch_next_byte() {
 }
 
 void Cpu::step() { 
-    //Byte instruction = fetch_next_byte();
-    //Opcodes opcode = opcode_parse(instruction);
-    //process_instruction(opcode);
+    Byte instruction = fetch_next_byte();
+    Opcodes opcode = OpcodeParser::parse(instruction);
+    process_instruction(opcode);
  }
 
  void Cpu::process_instruction(Opcodes opcodes) {

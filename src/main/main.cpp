@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <cstring>
-#include "core/machine.h"
-#include "util/logger.h"
-#include "util/options.h"
+#include "../core/machine.h"
+#include "../util/logger.h"
+#include "../util/options.h"
 
 void run_vm() {
     Log::info("Creating virtual machine..");
@@ -27,12 +27,12 @@ void usage() {
 }
 
 int main(int argc, char* argv[]) {
-    ProgramOptions flags = options_parse_args(argc, argv);
+    ProgramOptions flags = OptionsParser::parse_args(argc, argv);
     if (flags.showhelp) {
         usage();
         exit(1);
     }
-    options_set_loglevel(flags);
+    OptionsParser::set_loglevel(flags);
     run_vm();
     Log::info("Done.");
 }
