@@ -43,6 +43,7 @@
         "xlocnum": "cpp",
         "xstring": "cpp",
         "vector": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "chrono": "cpp"
     }
 }

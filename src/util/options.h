@@ -28,12 +28,12 @@ static const ProgramOptions options_parse_args(int argc, char* argv[]) {
         flags.showhelp = true;
       }
       else {
-        cerr << "Invalid flag: " << arg << "\n";
+        Log::warn("Invalid flag: " + arg );
         flags.showhelp = true;
       }
     }
     else {
-      cerr << "Invalid argument: " << arg << "\n";
+      Log::warn("Invalid argument: " + arg);
       flags.showhelp = true;
     }
   }

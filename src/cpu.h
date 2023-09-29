@@ -1,43 +1,43 @@
 #ifndef CPU_H
 #define CPU_H
-#include "bus.h"
-#include "clock.h"
-#include "cpustate.h"
-#include "logger.h"
-
-using word = char;
+#include "core/bus.h"
+#include "core/clock.h"
+#include "core/cpustate.h"
+#include "util/logger.h"
+#include "core/mem.h"
+#include "core/numbers.h"
+#include "core/opcodes.h"
 
 class Cpu {
     public:
         Cpu(Bus* bus, Clock* clock);
 
-        word get_x();
-        void set_x(word x);
-        word get_y();
-        void set_y(word y);
-        word get_acc();
-        void set_acc(word acc);
-        word get_pc();
-        void set_pc(word pc);
-        word get_status();
-        void set_status(word status);
+        Byte get_x();
+        void set_x(Byte x);
+        Byte get_y();
+        void set_y(Byte y);
+        Byte get_acc();
+        void set_acc(Byte acc);
+        Byte get_pc();
+        void set_pc(Byte pc);
+        Byte get_status();
+        void set_status(Byte status);
 
-        void fetch();
-        void decode();
-        void execute();
+        void step();
 
     private: 
         void clocktick();
+        Memory memory;
 
-        word x;
-        word y;
-        word acc;
-        word pc;
-        word status;
+        Byte x;
+        Byte y;
+        Byte acc;
+        Word pc;
+        Byte status;
 
         Bus* bus;
-        CpuState state;
-        int statestep;
+        Byte fetch_next_byte();
+        void process_instruction(Opcodes instruction);
 };
 
 #endif

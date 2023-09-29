@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <cstring>
-#include "machine.h"
-#include "logger.h"
-#include "options.h"
+#include "core/machine.h"
+#include "util/logger.h"
+#include "util/options.h"
 
 void run_vm() {
     Log::info("Creating virtual machine..");

@@ -1,15 +1,17 @@
 #ifndef LOGGER_H
 #define LOGGER_H
+
 #include <iostream>
 #include <cstring>
 #include <ctime>
+
 using namespace std;
 
-enum LogLevel {         // 08421
-    Trace = 1,          // 00001 
-    Information = 3,    // 00011
-    Warning = 7,        // 00111
-    Error = 15          // 01111
+enum LogLevel : int {   
+    Trace       = 0,
+    Information = 1,
+    Warning     = 2,
+    Error       = 3
 };
 
 class Log {
