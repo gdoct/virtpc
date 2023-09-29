@@ -7,10 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 file(GLOB SOURCES
-    src/core/*.cpp
-    src/main/*.cpp
-    src/microcode/*.cpp
-    src/util/*.cpp
+    src/*/*.cpp
 )
 
 foreach(SOURCE_FILE ${SOURCES})

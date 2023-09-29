@@ -7,6 +7,7 @@ struct ProgramOptions {
   bool debug; 
   bool silent; 
   bool showhelp;
+  bool test;
 };
 
 class OptionsParser {

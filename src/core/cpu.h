@@ -16,29 +16,39 @@ class Cpu {
 
         Byte get_x();
         void set_x(Byte x);
+
         Byte get_y();
         void set_y(Byte y);
+
         Byte get_acc();
         void set_acc(Byte acc);
-        Byte get_pc();
-        void set_pc(Byte pc);
+
+        Word get_pc();
+        void set_pc(Word pc);
+
+        Word get_mc();
+        void set_mc(Word mc);
+
         Byte get_status();
         void set_status(Byte status);
 
         void step();
 
+        Memory* memory = new Memory(65536);
+
     private: 
         void clocktick();
-        Memory memory;
 
         Byte x;
         Byte y;
         Byte acc;
         Word pc;
+        Word mc;
         Byte status;
 
         Bus* bus;
         Byte fetch_next_byte();
+        Word fetch_next_word();
         void process_instruction(Opcodes instruction);
 };
 

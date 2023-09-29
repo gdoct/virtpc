@@ -12,6 +12,9 @@ const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
             if (arg == "-d" || arg == "--debug") {
                 flags.debug = true;
             }
+            else if (arg == "-t" || arg == "--test") {
+                flags.test = true;
+            }
             else if (arg == "-s" || arg == "--silent") {
                 flags.silent = true;
             }

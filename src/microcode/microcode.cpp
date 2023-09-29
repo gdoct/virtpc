@@ -1,5 +1,16 @@
 #include "microcode.h"
+#include <string>
 
+const auto microcode = "";
+/*
+LDA
+load word address parameter into mc
+load memory into accum
+
+STA
+load word address parameter into mc
+store accum into memory
+*/
 const Microcode Microcode::load() {
     Microcode mc;
     return mc;
