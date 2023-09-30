@@ -68,5 +68,6 @@
         "xloctime": "cpp",
         "xtree": "cpp",
         "fstream": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": true
 }
