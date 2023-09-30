@@ -22,4 +22,4 @@ void TestRunner::run_all_tests()  {
         Log::warn("There were failed tests");
     }
     Log::info("Test result: " + resultout);
-};
+}
