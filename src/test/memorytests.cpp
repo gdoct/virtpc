@@ -1,19 +1,4 @@
 #include "memorytests.h"
-// class Memory {
-//     public: 
-//         Memory(int size);
-
-//         Byte read_byte(Word address);
-//         Word read_word(Word address);
-//         void write(Word address, Byte value);
-//         void write(Word address, Word value);
-//         void clear();
-
-//         void dump(string& filename);
-//         void load(string& filename);
-//     private:
-//         std::unordered_map<Word, Byte> memory;
-// };
 
 static bool memory_shouldstore() {
     auto mem = Memory(16384);
@@ -21,7 +6,8 @@ static bool memory_shouldstore() {
     Byte value = 42;
     mem.write(address, value);
     auto result = mem.read_byte(address);
-    assert(value == result);
+    bool expected = value == result;
+    return TestBase::assert_true(expected);
 }
 
 static bool memory_shouldreturnzero() {
