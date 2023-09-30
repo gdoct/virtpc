@@ -35,3 +35,8 @@ CMakeCache.txt
 cmake_install.cmake
 CMakeFiles/*
 Makefile
+*.cmake
+out/*
+.vscode/*
+Testing/*
+.vs/*
