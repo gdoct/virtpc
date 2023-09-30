@@ -4,7 +4,6 @@
 #include "../core/mem.h"
 #include "../util/logger.h"
 #include "../util/options.h"
-#include "../test/testrunner.h"
 
 void run_vm() {
     Log::info("Creating virtual machine..");
@@ -17,10 +16,6 @@ void run_vm() {
     delete m;
 }
 
-void test_vm() {
-    TestRunner::run_all_tests();
-}
-
 void usage() {
     string version = "0.0.1\0";
     printf("Virtual machine ");
@@ -29,7 +24,6 @@ void usage() {
            "virtpc [-d|--debug] [-s|--silent] [-h|--help] [-t|--test]\n" 
            "    -d|--debug: sets the output to debug level\n"
            "    -s|--silent: sets the output to warning level\n"
-           "    -t|--test: run all unit tests\n"
            "    -h|--help: displays this message\n"
            "\n");
 }
@@ -38,15 +32,11 @@ int main(int argc, char* argv[]) {
     auto flags = OptionsParser::parse_args(argc, argv);
     if (flags.showhelp) {
         usage();
-        exit(1);
+        exit(0);
     }
     OptionsParser::set_loglevel(flags);
 
-    if (flags.test) {
-        Log::info("Starting test run.");
-        test_vm();
-    } else {
-        run_vm();
-    }
+    run_vm();
+
     Log::info("Done.");
 }
