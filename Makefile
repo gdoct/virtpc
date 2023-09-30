@@ -1,8 +1,8 @@
 CXX       := g++
-CXXFLAGS  := -Wall -std=c++17 -Wextra -Werror -pthread -O2
+CXXFLAGS  := -Wall -std=c++20 -Wextra -Werror -pthread -O2
 LD        := g++
 
-MODULES   := microcode util core main
+MODULES   := test microcode util core main
 SRC_DIR   := $(addprefix src/,$(MODULES))
 BUILD_DIR := $(addprefix obj/,$(MODULES))
 

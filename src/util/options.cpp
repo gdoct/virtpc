@@ -4,6 +4,7 @@ const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
     flags.debug = false;
     flags.silent = false;
     flags.showhelp = false;
+    flags.test = false;
 
     for (int i = 1; i < argc; i++) {
         string arg = argv[i];

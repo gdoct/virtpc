@@ -14,9 +14,6 @@ void run_vm() {
         m->Step();
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
-    auto mem = m->GetCpu()->memory;
-    string s = "mem.dat";
-    mem->dump(s);
     delete m;
 }
 
@@ -46,6 +43,7 @@ int main(int argc, char* argv[]) {
     OptionsParser::set_loglevel(flags);
 
     if (flags.test) {
+        Log::info("Starting test run.");
         test_vm();
     } else {
         run_vm();
