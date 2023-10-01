@@ -36,14 +36,14 @@ static bool run_test(string name, bool (*action)()) {
     try {
         auto result = action();
         if (result) {
-            cout << "\033[32m[PASS] \033[0m" << name << endl;
+            cout << "\033[32m[PASSED] \033[0m" << name << endl;
         } else {
-            cout << "\033[31m[FAIL] \033[0m"<< name << endl;
+            cout << "\033[0;31m[FAILED] \033[0m"<< name << endl;
         }
         return result;
     } catch(int exception) { 
         /* .. */ 
-        cout << "\033[31m[CRASH] " << name << "\033[0m" << endl;
+        cout << "\033[1;31m[ERROR!] \033[0m"<< name << endl;
     }
     return false;
 }
