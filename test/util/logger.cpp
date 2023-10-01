@@ -1,5 +1,9 @@
 #include "logger.h"
 
-void LoggerTests::RunAll(TestRunResult& result) {
-    result.add_result(true);
+bool logger_shouldlog() {
+    return true;
+}
+
+void LoggerTests::register_tests() {
+    UNIT_TEST(logger_shouldlog);
 }

@@ -1,8 +1,6 @@
 #include "../tests.h"
 #include "../../src/core/mem.h"
 
-
-
 static bool memory_shouldstore() {
     auto mem = Memory(16384);
     Word address = 0;
@@ -14,27 +12,27 @@ static bool memory_shouldstore() {
 }
 
 static bool memory_shouldreturnzero() {
-    return false;
+    auto mem = Memory(16384);
+    auto val = mem.read_byte(1234);
+    const Byte expected = 0;
+    return expected == val;
 }
 
 static bool memory_shouldcrash() {
-    throw 42;
+    try {
+    auto mem = Memory(100);
+    // read beyond bounds should crash
+    auto val = mem.read_byte(1234);
+    } 
+    catch(void *) 
+    {
+        return true;
+    }
+    return false;
 }
 
-void MemoryTests::RunAll(TestRunResult& result) {
-    result.add_result(run_test("memory_shouldstore", &memory_shouldstore));
-    result.add_result(run_test("memory_shouldreturnzero", memory_shouldreturnzero));
-    result.add_result(run_test("memory_shouldcrash", memory_shouldcrash));
-    result.add_result(run_test("memory_shouldstore", memory_shouldstore));
-    result.add_result(run_test("memory_shouldreturnzero", memory_shouldreturnzero));
-    result.add_result(run_test("memory_shouldcrash", memory_shouldcrash));
-    result.add_result(run_test("memory_shouldstore", memory_shouldstore));
-    result.add_result(run_test("memory_shouldreturnzero", memory_shouldreturnzero));
-    result.add_result(run_test("memory_shouldcrash", memory_shouldcrash));
-    result.add_result(run_test("memory_shouldstore", memory_shouldstore));
-    result.add_result(run_test("memory_shouldreturnzero", memory_shouldreturnzero));
-    result.add_result(run_test("memory_shouldcrash", memory_shouldcrash));
-    result.add_result(run_test("memory_shouldstore", memory_shouldstore));
-    result.add_result(run_test("memory_shouldreturnzero", memory_shouldreturnzero));
-    result.add_result(run_test("memory_shouldcrash", memory_shouldcrash));
+void MemoryTests::register_tests() {
+    UNIT_TEST(memory_shouldstore);
+    UNIT_TEST(memory_shouldreturnzero);
+    UNIT_TEST(memory_shouldcrash);
 }

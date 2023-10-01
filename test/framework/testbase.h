@@ -13,16 +13,23 @@ using namespace std;
 
 #define UNIT_TEST_CLASS(NAME) class NAME : public TestBase {\
     public:\
-        NAME() : TestBase(#NAME) {};\
-\
-        void RunAll(TestRunResult& result) override;\
+        NAME() : TestBase(#NAME) {\
+            register_tests();\
+        };\
+    private:\
+        void register_tests() override;\
 };
 
-#define ADD_TEST(testname) add_test(#testname, testname)
+#define UNIT_TEST(testname) add_test(#testname, testname)
 
 struct TestRunResult {
-    int passed;
-    int failed;
+    TestRunResult(const string name) {
+        modulename = name;
+    }
+
+    int passed = 0;
+    int failed = 0;
+    string modulename;
 
     int total() { return passed + failed; }
 
@@ -43,7 +50,8 @@ class TestBase {
         TestBase(string testname) {
             name = testname;
         }
-        virtual void RunAll(TestRunResult& result) = 0;
+        virtual void register_tests() = 0;
+        TestRunResult run_all();
         static bool assert_equal(Byte b1, Byte b2) { return (b1 == b2);}
         static bool assert_equal(Word b1, Word b2) { return (b1 == b2);}
         static bool assert_true(bool b) { return b; }
@@ -51,23 +59,12 @@ class TestBase {
         static bool assert_false(bool b) { return !assert_true(b); }
         static bool assert_false(std::function<bool()> b) { return !assert_true(b); }
         string name;
-        bool run_test();
     protected:
         void add_test(string name, std::function<bool()> implementation);
+        bool run_test(string name);
+        std::unordered_map<std::string, std::function<bool()>> testfunctions = std::unordered_map<std::string, std::function<bool()>>();
+
 };
 
-static bool run_test(string name, bool (*action)()) {
-    try {
-        auto result = action();
-        if (result) {
-            cout << "\033[32m[SUCCESS] \033[0m" << name << endl;
-        } else {
-            cout << "\033[0;31m[FAILURE] \033[0m"<< name << endl;
-        }
-        return result;
-    } catch(int exception) { 
-        cout << "\033[1;31m[CRASHED] \033[0m" << name << "" << endl;
-    }
-    return false;
-}
+
 #endif

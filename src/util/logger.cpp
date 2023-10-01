@@ -2,10 +2,10 @@
 
 static LogLevel _currentLevel = LogLevel::Information;
 static std::map<LogLevel, std::string> _logLevelNames = {
-                {LogLevel::Trace, "Trace"},
-                {LogLevel::Information, "Information"},
-                {LogLevel::Warning, "Warning"},
-                {LogLevel::Error, "Error"}
+                {LogLevel::Trace, "Dbg"},
+                {LogLevel::Information, "Inf"},
+                {LogLevel::Warning, "Wrn"},
+                {LogLevel::Error, "Err"}
             };
 
 bool shouldWrite(LogLevel logLevel) {
