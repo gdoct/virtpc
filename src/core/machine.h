@@ -16,7 +16,7 @@ public:
     Cpu *GetCpu() const;
     Clock *GetClock() const;
 
-    void Step();
+    void Step() const;
 
 private:
     Cpu *cpu;

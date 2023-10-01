@@ -8,11 +8,12 @@
 #include <thread>
 #include <chrono>
 
+using Callback = std::function<void()>;
+
 class Clock {
 public:
 
-    typedef std::function<void()> Callback;
-    void registerCallback(Callback callback);
+    void registerCallback(const Callback& callback);
     void start(int interval_ms);
     void stop();
     void step() const;

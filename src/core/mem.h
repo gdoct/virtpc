@@ -6,11 +6,9 @@
 #include "numbers.h"
 #include "../util/logger.h"
 
-using namespace std;
-
 class Memory {
     public: 
-        Memory(int size);
+        explicit Memory(int size);
 
         Byte read_byte(Word address);
         Word read_word(Word address);
@@ -18,9 +16,10 @@ class Memory {
         void write(Word address, Word value);
         void clear();
 
-        void dump(string& filename);
-        void load(string& filename);
+        void dump(std::string& filename);
+        void load(std::string& filename);
     private:
         std::unordered_map<Word, Byte> memory;
+        const int size;
 };
 #endif

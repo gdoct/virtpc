@@ -7,7 +7,7 @@
 #include <chrono>
 #include <stdio.h>
 
-void Clock::registerCallback(Callback callback) {
+void Clock::registerCallback(const Callback& callback) {
     callbacks.push_back(callback);
 }
 

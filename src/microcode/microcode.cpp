@@ -1,7 +1,6 @@
 #include "microcode.h"
 #include <string>
 
-//const auto microcode = "";
 /*
 LDA
 load word address parameter into mc
@@ -11,7 +10,7 @@ STA
 load word address parameter into mc
 store accum into memory
 */
-const Microcode Microcode::load() {
+Microcode Microcode::load() {
     Microcode mc;
     return mc;
 }
@@ -30,8 +29,4 @@ MicroInstruction Microcode::get_step(Opcodes instruction, int step) const {
     }
     MicroInstruction mc;
     return mc;
-}
-
-Microcode::Microcode() {
-
 }

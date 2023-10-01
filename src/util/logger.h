@@ -28,9 +28,6 @@ class Log {
 
         static void set_LogLevel(LogLevel level);
         static LogLevel get_LogLevel();
-
-    private:
-       
 };
 
 #endif

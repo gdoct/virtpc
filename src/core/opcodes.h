@@ -2,6 +2,13 @@
 #define OPCODES_H
 
 #include "numbers.h"
+#include <vector>
+#include <algorithm>
+
+template <typename T>
+bool contains(const std::vector<T>& vec, T value) {
+    return std::find(vec.begin(), vec.end(), value) != vec.end();
+}
 
 enum class Opcodes : Byte {
 	BRK = 0x00,
@@ -154,163 +161,167 @@ enum class Opcodes : Byte {
 	SBC_ABS_X = 0xFD,
 	INC_ABS_X = 0xFE,
 };
+
+const vector<Byte> _allOpcodes = {
+				(Byte) Opcodes::BRK,
+				(Byte) Opcodes::ORA_X_IND,
+				(Byte) Opcodes::ORA_ZP,
+				(Byte) Opcodes::ASL_ZP,
+				(Byte) Opcodes::PHP,
+				(Byte) Opcodes::ORA_IMM,
+				(Byte) Opcodes::ASL_A,
+				(Byte) Opcodes::ORA_ABS,
+				(Byte) Opcodes::ASL_ABS,
+				(Byte) Opcodes::BPL_REL,
+				(Byte) Opcodes::ORA_IND_Y,
+				(Byte) Opcodes::ORA_ZP_X,
+				(Byte) Opcodes::ASL_ZP_X,
+				(Byte) Opcodes::CLC,
+				(Byte) Opcodes::ORA_ABS_Y,
+				(Byte) Opcodes::ORA_ABS_X,
+				(Byte) Opcodes::ASL_ABS_X,
+				(Byte) Opcodes::JSR_ABS,
+				(Byte) Opcodes::AND_X_IND,
+				(Byte) Opcodes::BIT_ZP,
+				(Byte) Opcodes::AND_ZP,
+				(Byte) Opcodes::ROL_ZP,
+				(Byte) Opcodes::PLP,
+				(Byte) Opcodes::AND_IMM,
+				(Byte) Opcodes::ROL_A,
+				(Byte) Opcodes::BIT_ABS,
+				(Byte) Opcodes::AND_ABS,
+				(Byte) Opcodes::ROL_ABS,
+				(Byte) Opcodes::BMI_REL,
+				(Byte) Opcodes::AND_IND_Y,
+				(Byte) Opcodes::AND_ZP_X,
+				(Byte) Opcodes::ROL_ZP_X,
+				(Byte) Opcodes::SEC,
+				(Byte) Opcodes::AND_ABS_Y,
+				(Byte) Opcodes::AND_ABS_X,
+				(Byte) Opcodes::ROL_ABS_X,
+				(Byte) Opcodes::RTI_IMP,
+				(Byte) Opcodes::EOR_X_IND,
+				(Byte) Opcodes::EOR_ZP,
+				(Byte) Opcodes::LSR_ZP,
+				(Byte) Opcodes::PHA_IMP,
+				(Byte) Opcodes::EOR_IMM,
+				(Byte) Opcodes::LSR_A,
+				(Byte) Opcodes::JMP_ABS,
+				(Byte) Opcodes::EOR_ABS,
+				(Byte) Opcodes::LSR_ABS,
+				(Byte) Opcodes::BVC_REL,
+				(Byte) Opcodes::EOR_IND_Y,
+				(Byte) Opcodes::EOR_ZP_X,
+				(Byte) Opcodes::LSR_ZP_X,
+				(Byte) Opcodes::CLI,
+				(Byte) Opcodes::EOR_ABS_Y,
+				(Byte) Opcodes::EOR_ABS_X,
+				(Byte) Opcodes::LSR_ABS_X,
+				(Byte) Opcodes::RTS_IMP,
+				(Byte) Opcodes::ADC_X_IND,
+				(Byte) Opcodes::ADC_ZP,
+				(Byte) Opcodes::ROR_ZP,
+				(Byte) Opcodes::PLA_IMP,
+				(Byte) Opcodes::ADC_IMM,
+				(Byte) Opcodes::ROR_A,
+				(Byte) Opcodes::JMP_IND,
+				(Byte) Opcodes::ADC_ABS,
+				(Byte) Opcodes::ROR_ABS,
+				(Byte) Opcodes::BVS_REL,
+				(Byte) Opcodes::ADC_IND_Y,
+				(Byte) Opcodes::ADC_ZP_X,
+				(Byte) Opcodes::ROR_ZP_X,
+				(Byte) Opcodes::SEI,
+				(Byte) Opcodes::ADC_ABS_Y,
+				(Byte) Opcodes::ADC_ABS_X,
+				(Byte) Opcodes::ROR_ABS_X,
+				(Byte) Opcodes::STA_X_IND,
+				(Byte) Opcodes::STY_ZP,
+				(Byte) Opcodes::STA_ZP,
+				(Byte) Opcodes::STX_ZP,
+				(Byte) Opcodes::DEY_IMP,
+				(Byte) Opcodes::TXA_IMP,
+				(Byte) Opcodes::STY_ABS,
+				(Byte) Opcodes::STA_ABS,
+				(Byte) Opcodes::STX_ABS,
+				(Byte) Opcodes::BCC_REL,
+				(Byte) Opcodes::STA_IND_Y,
+				(Byte) Opcodes::STY_ZP_X,
+				(Byte) Opcodes::STA_ZP_X,
+				(Byte) Opcodes::STX_ZP_Y,
+				(Byte) Opcodes::TYA_IMP,
+				(Byte) Opcodes::STA_ABS_Y,
+				(Byte) Opcodes::TXS_IMP,
+				(Byte) Opcodes::STA_ABS_X,
+				(Byte) Opcodes::LDY_IMM,
+				(Byte) Opcodes::LDA_X_IND,
+				(Byte) Opcodes::LDY_ZP,
+				(Byte) Opcodes::LDA_ZP,
+				(Byte) Opcodes::LDX_ZP,
+				(Byte) Opcodes::TAY_IMP,
+				(Byte) Opcodes::LDA_IMM,
+				(Byte) Opcodes::TAX_IMP,
+				(Byte) Opcodes::LDY_ABS,
+				(Byte) Opcodes::LDA_ABS,
+				(Byte) Opcodes::LDX_ABS,
+				(Byte) Opcodes::BCS_REL,
+				(Byte) Opcodes::LDA_IND_Y,
+				(Byte) Opcodes::LDY_ZP_X,
+				(Byte) Opcodes::LDA_ZP_X,
+				(Byte) Opcodes::LDX_ZP_Y,
+				(Byte) Opcodes::CLV_IMP,
+				(Byte) Opcodes::LDA_ABS_Y,
+				(Byte) Opcodes::TSX_IMP,
+				(Byte) Opcodes::LDY_ABS_X,
+				(Byte) Opcodes::LDA_ABS_X,
+				(Byte) Opcodes::LDX_ABS_Y,
+				(Byte) Opcodes::CPY_IMM,
+				(Byte) Opcodes::CMP_X_IND,
+				(Byte) Opcodes::CPY_ZP,
+				(Byte) Opcodes::CMP_ZP,
+				(Byte) Opcodes::DEC_ZP,
+				(Byte) Opcodes::INY_IMP,
+				(Byte) Opcodes::CMP_IMM,
+				(Byte) Opcodes::DEX_IMP,
+				(Byte) Opcodes::CMP_ABS,
+				(Byte) Opcodes::DEC_ABS,
+				(Byte) Opcodes::BNE_REL,
+				(Byte) Opcodes::CMP_IND_Y,
+				(Byte) Opcodes::CMP_ZP_X,
+				(Byte) Opcodes::DEC_ZP_X,
+				(Byte) Opcodes::CLD_IMP,
+				(Byte) Opcodes::CMP_ABS_Y,
+				(Byte) Opcodes::CMP_ABS_X,
+				(Byte) Opcodes::DEC_ABS_X,
+				(Byte) Opcodes::CPX_IMM,
+				(Byte) Opcodes::SBC_X_IND,
+				(Byte) Opcodes::CPX_ZP,
+				(Byte) Opcodes::SBC_ZP,
+				(Byte) Opcodes::INC_ZP,
+				(Byte) Opcodes::INX_IMP,
+				(Byte) Opcodes::SBC_IMM,
+				(Byte) Opcodes::NOP_IMP,
+				(Byte) Opcodes::CPX_ABS,
+				(Byte) Opcodes::SBC_ABS,
+				(Byte) Opcodes::INC_ABS,
+				(Byte) Opcodes::BEQ_REL,
+				(Byte) Opcodes::SBC_IND_Y,
+				(Byte) Opcodes::SBC_ZP_X,
+				(Byte) Opcodes::INC_ZP_X,
+				(Byte) Opcodes::SED_IMP,
+				(Byte) Opcodes::SBC_ABS_Y,
+				(Byte) Opcodes::SBC_ABS_X,
+				(Byte) Opcodes::INC_ABS_X,
+
+};
+
 class OpcodeParser {
 	public:
 		static Opcodes parse(Byte data) {
-			switch (data) {
-				case (Byte) Opcodes::BRK:
-				case (Byte) Opcodes::ORA_X_IND:
-				case (Byte) Opcodes::ORA_ZP:
-				case (Byte) Opcodes::ASL_ZP:
-				case (Byte) Opcodes::PHP:
-				case (Byte) Opcodes::ORA_IMM:
-				case (Byte) Opcodes::ASL_A:
-				case (Byte) Opcodes::ORA_ABS:
-				case (Byte) Opcodes::ASL_ABS:
-				case (Byte) Opcodes::BPL_REL:
-				case (Byte) Opcodes::ORA_IND_Y:
-				case (Byte) Opcodes::ORA_ZP_X:
-				case (Byte) Opcodes::ASL_ZP_X:
-				case (Byte) Opcodes::CLC:
-				case (Byte) Opcodes::ORA_ABS_Y:
-				case (Byte) Opcodes::ORA_ABS_X:
-				case (Byte) Opcodes::ASL_ABS_X:
-				case (Byte) Opcodes::JSR_ABS:
-				case (Byte) Opcodes::AND_X_IND:
-				case (Byte) Opcodes::BIT_ZP:
-				case (Byte) Opcodes::AND_ZP:
-				case (Byte) Opcodes::ROL_ZP:
-				case (Byte) Opcodes::PLP:
-				case (Byte) Opcodes::AND_IMM:
-				case (Byte) Opcodes::ROL_A:
-				case (Byte) Opcodes::BIT_ABS:
-				case (Byte) Opcodes::AND_ABS:
-				case (Byte) Opcodes::ROL_ABS:
-				case (Byte) Opcodes::BMI_REL:
-				case (Byte) Opcodes::AND_IND_Y:
-				case (Byte) Opcodes::AND_ZP_X:
-				case (Byte) Opcodes::ROL_ZP_X:
-				case (Byte) Opcodes::SEC:
-				case (Byte) Opcodes::AND_ABS_Y:
-				case (Byte) Opcodes::AND_ABS_X:
-				case (Byte) Opcodes::ROL_ABS_X:
-				case (Byte) Opcodes::RTI_IMP:
-				case (Byte) Opcodes::EOR_X_IND:
-				case (Byte) Opcodes::EOR_ZP:
-				case (Byte) Opcodes::LSR_ZP:
-				case (Byte) Opcodes::PHA_IMP:
-				case (Byte) Opcodes::EOR_IMM:
-				case (Byte) Opcodes::LSR_A:
-				case (Byte) Opcodes::JMP_ABS:
-				case (Byte) Opcodes::EOR_ABS:
-				case (Byte) Opcodes::LSR_ABS:
-				case (Byte) Opcodes::BVC_REL:
-				case (Byte) Opcodes::EOR_IND_Y:
-				case (Byte) Opcodes::EOR_ZP_X:
-				case (Byte) Opcodes::LSR_ZP_X:
-				case (Byte) Opcodes::CLI:
-				case (Byte) Opcodes::EOR_ABS_Y:
-				case (Byte) Opcodes::EOR_ABS_X:
-				case (Byte) Opcodes::LSR_ABS_X:
-				case (Byte) Opcodes::RTS_IMP:
-				case (Byte) Opcodes::ADC_X_IND:
-				case (Byte) Opcodes::ADC_ZP:
-				case (Byte) Opcodes::ROR_ZP:
-				case (Byte) Opcodes::PLA_IMP:
-				case (Byte) Opcodes::ADC_IMM:
-				case (Byte) Opcodes::ROR_A:
-				case (Byte) Opcodes::JMP_IND:
-				case (Byte) Opcodes::ADC_ABS:
-				case (Byte) Opcodes::ROR_ABS:
-				case (Byte) Opcodes::BVS_REL:
-				case (Byte) Opcodes::ADC_IND_Y:
-				case (Byte) Opcodes::ADC_ZP_X:
-				case (Byte) Opcodes::ROR_ZP_X:
-				case (Byte) Opcodes::SEI:
-				case (Byte) Opcodes::ADC_ABS_Y:
-				case (Byte) Opcodes::ADC_ABS_X:
-				case (Byte) Opcodes::ROR_ABS_X:
-				case (Byte) Opcodes::STA_X_IND:
-				case (Byte) Opcodes::STY_ZP:
-				case (Byte) Opcodes::STA_ZP:
-				case (Byte) Opcodes::STX_ZP:
-				case (Byte) Opcodes::DEY_IMP:
-				case (Byte) Opcodes::TXA_IMP:
-				case (Byte) Opcodes::STY_ABS:
-				case (Byte) Opcodes::STA_ABS:
-				case (Byte) Opcodes::STX_ABS:
-				case (Byte) Opcodes::BCC_REL:
-				case (Byte) Opcodes::STA_IND_Y:
-				case (Byte) Opcodes::STY_ZP_X:
-				case (Byte) Opcodes::STA_ZP_X:
-				case (Byte) Opcodes::STX_ZP_Y:
-				case (Byte) Opcodes::TYA_IMP:
-				case (Byte) Opcodes::STA_ABS_Y:
-				case (Byte) Opcodes::TXS_IMP:
-				case (Byte) Opcodes::STA_ABS_X:
-				case (Byte) Opcodes::LDY_IMM:
-				case (Byte) Opcodes::LDA_X_IND:
-				case (Byte) Opcodes::LDY_ZP:
-				case (Byte) Opcodes::LDA_ZP:
-				case (Byte) Opcodes::LDX_ZP:
-				case (Byte) Opcodes::TAY_IMP:
-				case (Byte) Opcodes::LDA_IMM:
-				case (Byte) Opcodes::TAX_IMP:
-				case (Byte) Opcodes::LDY_ABS:
-				case (Byte) Opcodes::LDA_ABS:
-				case (Byte) Opcodes::LDX_ABS:
-				case (Byte) Opcodes::BCS_REL:
-				case (Byte) Opcodes::LDA_IND_Y:
-				case (Byte) Opcodes::LDY_ZP_X:
-				case (Byte) Opcodes::LDA_ZP_X:
-				case (Byte) Opcodes::LDX_ZP_Y:
-				case (Byte) Opcodes::CLV_IMP:
-				case (Byte) Opcodes::LDA_ABS_Y:
-				case (Byte) Opcodes::TSX_IMP:
-				case (Byte) Opcodes::LDY_ABS_X:
-				case (Byte) Opcodes::LDA_ABS_X:
-				case (Byte) Opcodes::LDX_ABS_Y:
-				case (Byte) Opcodes::CPY_IMM:
-				case (Byte) Opcodes::CMP_X_IND:
-				case (Byte) Opcodes::CPY_ZP:
-				case (Byte) Opcodes::CMP_ZP:
-				case (Byte) Opcodes::DEC_ZP:
-				case (Byte) Opcodes::INY_IMP:
-				case (Byte) Opcodes::CMP_IMM:
-				case (Byte) Opcodes::DEX_IMP:
-				case (Byte) Opcodes::CMP_ABS:
-				case (Byte) Opcodes::DEC_ABS:
-				case (Byte) Opcodes::BNE_REL:
-				case (Byte) Opcodes::CMP_IND_Y:
-				case (Byte) Opcodes::CMP_ZP_X:
-				case (Byte) Opcodes::DEC_ZP_X:
-				case (Byte) Opcodes::CLD_IMP:
-				case (Byte) Opcodes::CMP_ABS_Y:
-				case (Byte) Opcodes::CMP_ABS_X:
-				case (Byte) Opcodes::DEC_ABS_X:
-				case (Byte) Opcodes::CPX_IMM:
-				case (Byte) Opcodes::SBC_X_IND:
-				case (Byte) Opcodes::CPX_ZP:
-				case (Byte) Opcodes::SBC_ZP:
-				case (Byte) Opcodes::INC_ZP:
-				case (Byte) Opcodes::INX_IMP:
-				case (Byte) Opcodes::SBC_IMM:
-				case (Byte) Opcodes::NOP_IMP:
-				case (Byte) Opcodes::CPX_ABS:
-				case (Byte) Opcodes::SBC_ABS:
-				case (Byte) Opcodes::INC_ABS:
-				case (Byte) Opcodes::BEQ_REL:
-				case (Byte) Opcodes::SBC_IND_Y:
-				case (Byte) Opcodes::SBC_ZP_X:
-				case (Byte) Opcodes::INC_ZP_X:
-				case (Byte) Opcodes::SED_IMP:
-				case (Byte) Opcodes::SBC_ABS_Y:
-				case (Byte) Opcodes::SBC_ABS_X:
-				case (Byte) Opcodes::INC_ABS_X:
-					return (Opcodes)data;
-				default:
-					return Opcodes::NOP_IMP;
-				}
+			if (contains(_allOpcodes, data)) {
+				return (Opcodes)data;
+			}
+			return Opcodes::NOP_IMP;
 		}
 };
 

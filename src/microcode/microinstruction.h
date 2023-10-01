@@ -8,8 +8,8 @@
 
 class MicroInstruction {
     public:
-        const static MicroInstruction parse(string* data);
-        void execute(Cpu* cpu) const;
+        static MicroInstruction parse(string* data);
+        void execute(const Cpu* cpu) const;
 };
 
 #endif

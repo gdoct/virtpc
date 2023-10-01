@@ -1,4 +1,7 @@
 #include "options.h"
+
+using namespace std;
+
 const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
     auto flags = ProgramOptions();
     flags.debug = false;

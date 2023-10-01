@@ -6,9 +6,7 @@ Machine::~Machine() {
     delete bus;
 }
 
-Machine::Machine() {
-    bus = new Bus();
-    clock = new Clock();
+Machine::Machine() : bus(new Bus()), clock(new Clock()) {
     cpu = new Cpu(bus, clock);
 }
 
@@ -24,7 +22,7 @@ Clock* Machine::GetClock() const {
     return clock;
 }
 
-void Machine::Step() {
+void Machine::Step() const {
     clock->step();
 }
 

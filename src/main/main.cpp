@@ -7,13 +7,12 @@
 
 static void run_vm() {
     Log::info("Creating virtual machine..");
-    auto m = new Machine();
+    auto m = make_unique<Machine>();
     for (auto i=0; i<18; i++) {
         Log::trace("executing step");
         m->Step();
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
-    delete m;
 }
 
 static void usage() {

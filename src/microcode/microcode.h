@@ -6,8 +6,7 @@
 
 class Microcode {
     public:
-        static const Microcode load();
-        Microcode();
+        static Microcode load();
         int get_step_count(Opcodes instruction) const;
         MicroInstruction get_step(Opcodes instruction, int step) const;
 };

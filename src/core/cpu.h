@@ -14,6 +14,8 @@ class Cpu {
     public:
         Cpu(Bus* bus, Clock* clock);
 
+        Memory* get_Memory() const { return memory; }
+
         Byte get_x() const;
         void set_x(Byte x);
 
@@ -34,8 +36,6 @@ class Cpu {
 
         void step();
 
-        Memory* memory = new Memory(65536);
-
     private: 
         void clocktick();
 
@@ -47,6 +47,7 @@ class Cpu {
         Byte status;
 
         Bus* bus;
+        Memory* memory = new Memory(65536);
         Byte fetch_next_byte();
         Word fetch_next_word();
         void process_instruction(Opcodes instruction);

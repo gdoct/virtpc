@@ -1,7 +1,7 @@
 #include "logger.h"
 
-static LogLevel _currentLevel = LogLevel::Information;
-static std::map<LogLevel, std::string> _logLevelNames = {
+LogLevel _currentLevel = LogLevel::Information;
+std::map<LogLevel, std::string> _logLevelNames = {
                 {LogLevel::Trace, "Dbg"},
                 {LogLevel::Information, "Inf"},
                 {LogLevel::Warning, "Wrn"},
