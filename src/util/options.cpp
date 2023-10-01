@@ -1,6 +1,6 @@
 #include "options.h"
 const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
-    ProgramOptions flags;
+    auto flags = ProgramOptions();
     flags.debug = false;
     flags.silent = false;
     flags.showhelp = false;

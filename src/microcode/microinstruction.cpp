@@ -1,7 +1,7 @@
 #include "microinstruction.h"
 
 MicroInstruction MicroInstruction::parse(string* data) {
-    MicroInstruction i;
+    auto i = MicroInstruction();
     Log::warn(data);
     return i;
 }

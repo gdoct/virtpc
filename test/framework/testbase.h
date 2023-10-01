@@ -36,7 +36,7 @@ struct TestRunResult {
     short score() { 
         int count = total();
         if (count == 0) return 0;
-        return ((short) passed) / count;
+        return ((short) 100 * passed) / count;
     }
 
     void add_result(bool isPassed) {
@@ -63,8 +63,5 @@ class TestBase {
         void add_test(string name, std::function<bool()> implementation);
         bool run_test(string name);
         std::unordered_map<std::string, std::function<bool()>> testfunctions = std::unordered_map<std::string, std::function<bool()>>();
-
 };
-
-
 #endif

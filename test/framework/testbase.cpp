@@ -6,7 +6,7 @@ void TestBase::add_test(string name, std::function<bool()> implementation) {
 }
 
 TestRunResult TestBase::run_all() {
-    TestRunResult result = TestRunResult(this->name);
+    auto result = TestRunResult(this->name);
     for (const auto& key: testfunctions) {
         result.add_result(run_test(key.first));
     }

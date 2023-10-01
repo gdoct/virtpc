@@ -5,6 +5,7 @@
 #include <cstdint>
 #include "mem.h"
 #include "numbers.h"
+#include "../util/exception.h"
 
 int _size;
 
@@ -18,6 +19,9 @@ Memory::Memory(int size) {
 }
 
 Byte Memory::read_byte(Word address) {
+    if (address >= _size) {
+        return 0;
+    }
     if (memory.count(address) == 0) {
         return 0;
     }
@@ -25,16 +29,25 @@ Byte Memory::read_byte(Word address) {
 }
 
 Word Memory::read_word(Word address) {
+    if (address >= _size) {
+        return 0;
+    }
     auto high = memory[address];
     auto low = memory[address + 1];
     return ((Word)high << 8) | low;
 }
 
 void Memory::write(Word address, Byte value) {
+    if (address >= _size) {
+        return;
+    }
     memory[address] = value;
 }
 
 void Memory::write(Word address, Word value) {
+    if (address >= _size) {
+        return;
+    }
     Byte high = (Byte)((value & 0xFF00) >> 8);
     Byte low = (Byte)(value & 0x00FF);
     memory[address] = high;
