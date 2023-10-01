@@ -1,3 +1,3 @@
 #include "../framework/testbase.h"
 
-UNIT_TEST(MemoryTests)
+UNIT_TEST_CLASS(MemoryTests)

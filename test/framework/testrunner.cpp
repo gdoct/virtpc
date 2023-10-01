@@ -15,13 +15,15 @@ std::string format_result(const TestRunResult& result) {
 }
 
 void TestRunner::run_all_tests(std::vector<TestBase*> tests)  {
+    TestRunResult result = TestRunResult();
     for(auto test: tests) {
       Log::info("Running tests: " + test->name);
-      auto result = test->RunAll();
-      auto resultout = format_result(result);
-      if (result.failed > 0) {
-          Log::warn("There were failed tests");
-      }
-      Log::info("Test result: " + resultout);
+      test->RunAll(result);
     }
+
+    auto resultout = format_result(result);
+    if (result.failed > 0) {
+        Log::warn("There were failed tests");
+    }
+    Log::info("Test result: " + resultout);
 }

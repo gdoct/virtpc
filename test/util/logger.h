@@ -1,3 +1,3 @@
 #include "../framework/testbase.h"
 
-UNIT_TEST(LoggerTests)
+UNIT_TEST_CLASS(LoggerTests)

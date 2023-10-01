@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <unordered_map>
 #include <functional>
 #include <vector>
 #include "../../src/util/logger.h"
@@ -10,16 +11,31 @@
 
 using namespace std;
 
-#define UNIT_TEST(NAME) class NAME : public TestBase {\
+#define UNIT_TEST_CLASS(NAME) class NAME : public TestBase {\
     public:\
         NAME() : TestBase(#NAME) {};\
 \
-        TestRunResult RunAll() override;\
+        void RunAll(TestRunResult& result) override;\
 };
+
+#define ADD_TEST(testname) add_test(#testname, testname)
 
 struct TestRunResult {
     int passed;
     int failed;
+
+    int total() { return passed + failed; }
+
+    short score() { 
+        int count = total();
+        if (count == 0) return 0;
+        return ((short) passed) / count;
+    }
+
+    void add_result(bool isPassed) {
+        if (isPassed) passed++;
+        else failed++;
+    }
 };
 
 class TestBase {
@@ -27,7 +43,7 @@ class TestBase {
         TestBase(string testname) {
             name = testname;
         }
-        virtual TestRunResult RunAll() = 0;
+        virtual void RunAll(TestRunResult& result) = 0;
         static bool assert_equal(Byte b1, Byte b2) { return (b1 == b2);}
         static bool assert_equal(Word b1, Word b2) { return (b1 == b2);}
         static bool assert_true(bool b) { return b; }
@@ -35,6 +51,9 @@ class TestBase {
         static bool assert_false(bool b) { return !assert_true(b); }
         static bool assert_false(std::function<bool()> b) { return !assert_true(b); }
         string name;
+        bool run_test();
+    protected:
+        void add_test(string name, std::function<bool()> implementation);
 };
 
 static bool run_test(string name, bool (*action)()) {
