@@ -14,22 +14,22 @@ class Cpu {
     public:
         Cpu(Bus* bus, Clock* clock);
 
-        Byte get_x();
+        Byte get_x() const;
         void set_x(Byte x);
 
-        Byte get_y();
+        Byte get_y() const;
         void set_y(Byte y);
 
-        Byte get_acc();
+        Byte get_acc() const;
         void set_acc(Byte acc);
 
-        Word get_pc();
+        Word get_pc() const;
         void set_pc(Word pc);
 
-        Word get_mc();
+        Word get_mc() const;
         void set_mc(Word mc);
 
-        Byte get_status();
+        Byte get_status() const;
         void set_status(Byte status);
 
         void step();

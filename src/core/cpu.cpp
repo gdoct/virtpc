@@ -12,17 +12,17 @@ void Cpu::clocktick() {
     step();
 }
 
-Byte Cpu::get_x() { return x; }
+Byte Cpu::get_x() const { return x; }
 void Cpu::set_x(Byte newx){ x = newx; }
-Byte Cpu::get_y() { return y; }
+Byte Cpu::get_y() const { return y; }
 void Cpu::set_y(Byte newy){ y = newy; }
-Byte Cpu::get_acc() { return acc; }
+Byte Cpu::get_acc() const { return acc; }
 void Cpu::set_acc(Byte newacc){ acc = newacc; }
-Word Cpu::get_pc() { return pc; }
+Word Cpu::get_pc() const { return pc; }
 void Cpu::set_pc(Word newpc){ pc = newpc; }
-Word Cpu::get_mc() { return mc; }
+Word Cpu::get_mc() const { return mc; }
 void Cpu::set_mc(Word newmc){ mc = newmc; }
-Byte Cpu::get_status() { return status; }
+Byte Cpu::get_status() const { return status; }
 void Cpu::set_status(Byte newstatus){ status = newstatus; }
 
 Byte Cpu::fetch_next_byte() {

@@ -15,12 +15,12 @@ public:
     void registerCallback(Callback callback);
     void start(int interval_ms);
     void stop();
-    void step();
+    void step() const;
     
 private:
     std::vector<Callback> callbacks;
     std::thread thread;
     bool running = false;
-    void tick(int interval_ms);
+    void tick(int interval_ms) const;
 };
 #endif

@@ -7,7 +7,7 @@
 
 class Bus {
     public:
-        void Tick();
+        void Tick() const;
 
     private:
         std::vector<std::function<void()>> _callbacks;

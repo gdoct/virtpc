@@ -5,7 +5,7 @@
 #include "../util/logger.h"
 #include "../util/options.h"
 
-void run_vm() {
+static void run_vm() {
     Log::info("Creating virtual machine..");
     auto m = new Machine();
     for (auto i=0; i<18; i++) {
@@ -16,7 +16,7 @@ void run_vm() {
     delete m;
 }
 
-void usage() {
+static void usage() {
     string version = "0.0.1\0";
     printf("Virtual machine ");
     printf("version: %s\n", version.c_str());

@@ -25,17 +25,17 @@ void Clock::stop() {
     }
 }
 
-void Clock::tick(int interval_ms) {
+void Clock::tick(int interval_ms) const {
     while (running) {
         std::this_thread::sleep_for(std::chrono::milliseconds(interval_ms));
-        for (auto &callback : callbacks) {
+        for (const auto &callback : callbacks) {
             callback();
         }
     }
 }
 
-void Clock::step() {
-    for (auto &callback : callbacks) {
+void Clock::step() const {
+    for (const auto &callback : callbacks) {
         callback();
     }
 }

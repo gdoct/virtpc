@@ -1,7 +1,7 @@
 #include "bus.h"
 
-void Bus::Tick() {
-    for (auto callback : _callbacks) {
+void Bus::Tick() const {
+    for (const auto callback : _callbacks) {
         callback();
     }
 }
