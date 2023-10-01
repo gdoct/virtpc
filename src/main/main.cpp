@@ -5,6 +5,8 @@
 #include "../util/logger.h"
 #include "../util/options.h"
 
+using namespace std;
+
 static void run_vm() {
     Log::info("Creating virtual machine..");
     auto m = make_unique<Machine>();

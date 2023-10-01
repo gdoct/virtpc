@@ -162,7 +162,7 @@ enum class Opcodes : Byte {
 	INC_ABS_X = 0xFE,
 };
 
-const vector<Byte> _allOpcodes = {
+const std::vector<Byte> _allOpcodes = {
 				(Byte) Opcodes::BRK,
 				(Byte) Opcodes::ORA_X_IND,
 				(Byte) Opcodes::ORA_ZP,

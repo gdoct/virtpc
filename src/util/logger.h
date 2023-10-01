@@ -5,7 +5,6 @@
 #include <cstring>
 #include <ctime>
 #include <map>
-using namespace std;
 
 enum LogLevel : int {   
     Trace       = 0,
@@ -16,15 +15,15 @@ enum LogLevel : int {
 
 class Log {
     public:
-        static void trace(string message);
-        static void info(string message);
-        static void warn(string message);
-        static void error(string message);
+        static void trace(std::string message);
+        static void info(std::string message);
+        static void warn(std::string message);
+        static void error(std::string message);
 
-        static void trace(string* message);
-        static void info(string* message);
-        static void warn(string* message);
-        static void error(string* message);
+        static void trace(std::string* message);
+        static void info(std::string* message);
+        static void warn(std::string* message);
+        static void error(std::string* message);
 
         static void set_LogLevel(LogLevel level);
         static LogLevel get_LogLevel();

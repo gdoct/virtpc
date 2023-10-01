@@ -1,6 +1,6 @@
 #include "microinstruction.h"
 
-MicroInstruction MicroInstruction::parse(string* data) {
+MicroInstruction MicroInstruction::parse(std::string* data) {
     auto i = MicroInstruction();
     Log::warn(data);
     return i;

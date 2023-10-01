@@ -15,9 +15,9 @@ public:
     void Step() const;
 
 private:
-    std::unique_ptr<Bus> bus = make_unique<Bus>();
-    std::unique_ptr<Clock> clock = make_unique<Clock>();
-    std::unique_ptr<Cpu> cpu = make_unique<Cpu>(new Cpu(bus.get(), clock.get()));
+    std::unique_ptr<Bus> bus = std::make_unique<Bus>();
+    std::unique_ptr<Clock> clock = std::make_unique<Clock>();
+    std::unique_ptr<Cpu> cpu = std::make_unique<Cpu>(new Cpu(bus.get(), clock.get()));
 };
 
 #endif

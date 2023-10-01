@@ -12,8 +12,8 @@
 
 class Cpu {
     public:
-        Cpu(Bus* bus, Clock* clock);
-        Cpu(Cpu* cpu);
+        explicit Cpu(Bus* bus, Clock* clock);
+        explicit Cpu(Cpu* cpu);
         
         Memory* get_Memory() const { return memory; }
 

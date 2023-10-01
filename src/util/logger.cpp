@@ -1,5 +1,7 @@
 #include "logger.h"
 
+using namespace std;
+
 LogLevel _currentLevel = LogLevel::Information;
 std::map<LogLevel, std::string> _logLevelNames = {
                 {LogLevel::Trace, "Dbg"},
@@ -17,8 +19,10 @@ static void write(LogLevel logLevel, string* message) {
         return;
     }
     auto prefix = _logLevelNames[logLevel];
-    auto now = time(0);
-    auto local = localtime(&now);
+    time_t current_time;
+    struct tm local_time;
+    time(&current_time);
+    auto local = localtime_r(&current_time, &local_time);
     char time_str[9];
     strftime(time_str, 9, "%T", local);
     printf("[%s] %s %s\n", prefix.c_str(), time_str, message->c_str());
