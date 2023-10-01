@@ -45,7 +45,7 @@ set_target_properties(virtpc PROPERTIES
 add_executable(virtpc-tests ${TESTS})
 
 target_link_libraries(virtpc-tests PRIVATE virt)
-target_compile_options(virtpc-tests PRIVATE -pthread -O2)
+target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )

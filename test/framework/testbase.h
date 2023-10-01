@@ -27,22 +27,46 @@ struct TestRunResult {
         modulename = name;
     }
 
-    int passed = 0;
-    int failed = 0;
+    ~TestRunResult() {
+        testresults.clear();
+    }
+
+    int passed() { 
+        int count = 0;
+        for (const auto& pair : testresults) {
+            if (pair.second) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    int failed() {
+        int count = 0;
+        for (const auto& pair : testresults) {
+            if (!pair.second) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
     string modulename;
 
-    int total() { return passed + failed; }
+    int total() { return testresults.size(); }
 
     short score() { 
         int count = total();
-        if (count == 0) return 0;
-        return ((short) 100 * passed) / count;
+        if (count == 0) return 100;
+        return ((short) 100 * passed()) / count;
     }
 
-    void add_result(bool isPassed) {
-        if (isPassed) passed++;
-        else failed++;
+    void add_result(string testname, bool isPassed) {
+        testresults[testname] = isPassed;
     }
+
+    private:
+        std::unordered_map<std::string, bool> testresults = std::unordered_map<std::string, bool>();
 };
 
 class TestBase {
@@ -52,12 +76,6 @@ class TestBase {
         }
         virtual void register_tests() = 0;
         TestRunResult run_all();
-        static bool assert_equal(Byte b1, Byte b2) { return (b1 == b2);}
-        static bool assert_equal(Word b1, Word b2) { return (b1 == b2);}
-        static bool assert_true(bool b) { return b; }
-        static bool assert_true(std::function<bool()> b) { return b(); }
-        static bool assert_false(bool b) { return !assert_true(b); }
-        static bool assert_false(std::function<bool()> b) { return !assert_true(b); }
         string name;
     protected:
         void add_test(string name, std::function<bool()> implementation);
