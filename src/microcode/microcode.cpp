@@ -1,7 +1,7 @@
 #include "microcode.h"
 #include <string>
 
-const auto microcode = "";
+//const auto microcode = "";
 /*
 LDA
 load word address parameter into mc
