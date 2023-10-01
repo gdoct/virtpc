@@ -17,6 +17,7 @@ file(GLOB_RECURSE SOURCES
 )
 
 file(GLOB_RECURSE TESTS 
+    "test/*.h"
     "test/*.cpp"
 )
 

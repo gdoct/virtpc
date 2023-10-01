@@ -1,4 +1,4 @@
-#include "mem.h"
+#include "../tests.h"
 #include "../../src/core/mem.h"
 
 static bool memory_shouldstore() {

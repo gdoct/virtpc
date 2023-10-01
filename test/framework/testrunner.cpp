@@ -1,8 +1,7 @@
 #include "testrunner.h"
 #include <sstream>
 #include <string>
-
-#include "../core/mem.h"
+#include <vector>
 
 using namespace std;
 
@@ -15,12 +14,14 @@ std::string format_result(const TestRunResult& result) {
   return output_stream.str();
 }
 
-void TestRunner::run_all_tests()  {
-    MemoryTests mt;
-    auto result = mt.RunAll();
-    auto resultout = format_result(result);
-    if (result.failed > 0) {
-        Log::warn("There were failed tests");
+void TestRunner::run_all_tests(std::vector<TestBase*> tests)  {
+    for(auto test: tests) {
+      Log::info("Running tests: " + test->name);
+      auto result = test->RunAll();
+      auto resultout = format_result(result);
+      if (result.failed > 0) {
+          Log::warn("There were failed tests");
+      }
+      Log::info("Test result: " + resultout);
     }
-    Log::info("Test result: " + resultout);
 }
