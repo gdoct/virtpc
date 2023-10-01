@@ -13,7 +13,8 @@
 class Cpu {
     public:
         Cpu(Bus* bus, Clock* clock);
-
+        Cpu(Cpu* cpu);
+        
         Memory* get_Memory() const { return memory; }
 
         Byte get_x() const;
@@ -50,7 +51,7 @@ class Cpu {
         Memory* memory = new Memory(65536);
         Byte fetch_next_byte();
         Word fetch_next_word();
-        void process_instruction(Opcodes instruction);
+        void process_instruction(Opcodes instruction) const;
 };
 
 #endif

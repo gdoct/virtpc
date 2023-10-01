@@ -1,6 +1,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <unordered_map>
 #include <vector>
 #include <cstdint>
 #include "mem.h"
@@ -9,12 +10,6 @@
 
 using namespace std;
 
-string convertToString(uint8_t value) {
-    char result[2];
-    result[0] = static_cast<char>((value >> 8) & 0xFF);
-    result[1] = static_cast<char>(value & 0xFF);
-    return (string) result;
-}
 
 Memory::Memory(int size) : size(size) {
 }
@@ -59,31 +54,64 @@ void Memory::clear() {
     memory.clear();
 }
 
-void Memory::dump(string& filename) {
+bool writeToFile(const std::string& filename, const std::vector<uint8_t>& data) {
     std::ofstream file(filename, std::ios::binary);
-    if (file) {
-        for (auto i = 0; i < size; i++) {
-            // sonarqube insists that a char* is not done nowadays
-            auto result = convertToString(memory[i]).c_str();
-            file.write(result, 2);
+    if (file.is_open()) {
+        file.write(reinterpret_cast<const char*>(data.data()), data.size());
+        return true;
+    }
+    return false;
+}
+
+std::vector<Byte> readFromFile(const std::string& filename) {
+    std::ifstream file(filename, std::ios::binary | std::ios::ate);
+    if (file.is_open()) {
+        std::streamsize size = file.tellg();
+        file.seekg(0, std::ios::beg);
+
+        std::vector<Byte> buffer(size);
+        if (file.read(reinterpret_cast<char*>(buffer.data()), size)) {
+            return buffer;
         }
-        file.close();
+    }
+    return {};
+}
+
+std::vector<uint8_t> convertMapToVector(std::unordered_map<Word, Byte>& map, int size) {
+    std::vector<uint8_t> vec;
+    for (Word i=0; i < size; i++) {
+        auto val = map.find(i);
+        if (val == map.end()) {
+            vec.push_back(0);
+        }
+        else {
+            vec.push_back(map[i]);
+        }
+    }
+    return vec;
+}
+
+void Memory::dump(string& filename) {
+    auto data = convertMapToVector(memory, size);
+    auto file = writeToFile(filename, data);
+    if (file) {
         Log::info("Data dumped to file: " + filename);
     } else {
-        Log::error("Failed to open file: " + filename);
+        Log::error("Failed to dump to file: " + filename);
     }
 }
 
 void Memory::load(string& filename) {
     clear();
-    std::ifstream file(filename, std::ios::binary);
-    if (file) {
-        for (auto i = 0; i < size; i++) {
-            char numAsChar[1];
-            file.read(numAsChar, sizeof(numAsChar));
-            memory[i] = 0; 
+    auto data = readFromFile(filename);
+    auto datasize = data.size();
+    if (datasize > 0) {
+        
+        for (Word i = 0; i < datasize; i++) {
+            if(data[i] != 0) {
+                memory[i] = data[i]; 
+            }
         }
-        file.close();
         Log::info("Data loaded from file: " + filename);
     } else {
         Log::error("Failed to open file: " + filename);

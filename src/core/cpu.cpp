@@ -2,6 +2,10 @@
 #include "../microcode/microcode.h"
 const Microcode s_microcode = Microcode::load();
 
+Cpu::Cpu(Cpu* copy) : bus(copy->bus) {
+    memory->clear();
+}
+
 Cpu::Cpu(Bus* cpubus, Clock* clock) : bus(cpubus) {
     clock->registerCallback(std::bind(&Cpu::clocktick, this));
     memory->clear();
@@ -42,7 +46,7 @@ void Cpu::step() {
     process_instruction(opcode);
  }
 
- void Cpu::process_instruction(Opcodes opcodes) {
+ void Cpu::process_instruction(Opcodes opcodes) const {
     auto stepcount = s_microcode.get_step_count(opcodes);
     Log::trace("d");
     for (int c = 0; c < stepcount; c++) {
