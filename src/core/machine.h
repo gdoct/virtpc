@@ -8,16 +8,12 @@
 
 class Machine {
 public:
-    Bus *GetBus() const;
-    Cpu *GetCpu() const;
-    Clock *GetClock() const;
-
-    void Step() const;
+    Machine(); 
+    Cpu *get_cpu() const;
+    void step() const;
 
 private:
-    std::unique_ptr<Bus> bus = std::make_unique<Bus>();
-    std::unique_ptr<Clock> clock = std::make_unique<Clock>();
-    std::unique_ptr<Cpu> cpu = std::make_unique<Cpu>(new Cpu(bus.get(), clock.get()));
+    const std::unique_ptr<Cpu> cpu;
 };
 
 #endif

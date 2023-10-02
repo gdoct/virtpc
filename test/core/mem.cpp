@@ -29,8 +29,7 @@ memory_beyondbounds_shouldnotcrash(void) {
     return (val == 0);
 }
 
-void 
-MemoryTests::register_tests(void) {
+void MemoryTests::register_tests() {
     UNIT_TEST(memory_shouldstore);
     UNIT_TEST(memory_shouldreturnzero);
     UNIT_TEST(memory_beyondbounds_shouldnotcrash);

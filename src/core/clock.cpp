@@ -5,7 +5,14 @@
 #include <functional>
 #include <thread>
 #include <chrono>
-#include <stdio.h>
+
+using namespace std;
+
+Clock::Clock() {}
+
+Clock::Clock(Clock& other) : callbacks(other.callbacks), running(other.running) {
+
+}
 
 void Clock::registerCallback(const Callback& callback) {
     callbacks.push_back(callback);

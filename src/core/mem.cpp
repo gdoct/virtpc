@@ -10,9 +10,11 @@
 
 using namespace std;
 
+MemoryOptions::MemoryOptions(int size) : size(size) {}
 
-Memory::Memory(int size) : size(size) {
-}
+Memory::Memory(Memory& other): size(other.size), memory(other.memory) {}
+Memory::Memory(MemoryOptions options) : size(options.size), memory() {}
+Memory::Memory() : size(4096), memory() {}
 
 Byte Memory::read_byte(Word address) {
     if (address >= size) {
@@ -116,4 +118,8 @@ void Memory::load(string& filename) {
     } else {
         Log::error("Failed to open file: " + filename);
     }
+}
+
+int Memory::get_size() { 
+    return size; 
 }

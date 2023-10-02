@@ -1,15 +1,29 @@
 #include "cpu.h"
 #include "../microcode/microcode.h"
+
+using namespace std;
+
 const Microcode s_microcode = Microcode::load();
 
-Cpu::Cpu(Cpu* copy) : bus(copy->bus) {
+Cpu::Cpu() : bus(new Bus()), clock(new Clock()), memory(new Memory()) {
     memory->clear();
+    clock->registerCallback(std::bind(&Cpu::clocktick, this));
 }
 
-Cpu::Cpu(Bus* cpubus, Clock* clock) : bus(cpubus) {
+Cpu::Cpu(Bus* cpubus, Clock* clock,  Memory* memory) : bus(cpubus), clock(clock), memory(memory) {
     clock->registerCallback(std::bind(&Cpu::clocktick, this));
-    memory->clear();
 }
+
+Cpu::Cpu(Cpu& other) : x(other.x), 
+                       y(other.y), 
+                       acc(other.acc), 
+                       pc(other.pc), 
+                       mc(other.mc), 
+                       status(other.status),
+                       bus(new Bus(*other.bus)),
+                       clock(new Clock(*other.clock)),
+                       memory(new Memory(*other.memory)) {
+        }
 
 void Cpu::clocktick() {
     step();

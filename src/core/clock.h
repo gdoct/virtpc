@@ -12,7 +12,8 @@ using Callback = std::function<void()>;
 
 class Clock {
 public:
-
+    Clock();
+    Clock(Clock& other);
     void registerCallback(const Callback& callback);
     void start(int interval_ms);
     void stop();
@@ -22,6 +23,7 @@ private:
     std::vector<Callback> callbacks;
     std::thread thread;
     bool running = false;
+
     void tick(int interval_ms) const;
 };
 #endif

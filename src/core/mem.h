@@ -6,10 +6,18 @@
 #include "numbers.h"
 #include "../util/logger.h"
 
+struct MemoryOptions {
+    MemoryOptions(int size);
+    const int size;
+    bool throwOutOfBounds;
+};
+
 class Memory {
     public: 
-        explicit Memory(int size);
-
+        Memory();
+        Memory(Memory& other);
+        Memory(MemoryOptions options);
+        
         Byte read_byte(Word address);
         Word read_word(Word address);
         void write(Word address, Byte value);
@@ -18,8 +26,11 @@ class Memory {
 
         void dump(std::string& filename);
         void load(std::string& filename);
+        
+        int get_size();
+
     private:
-        std::unordered_map<Word, Byte> memory;
         const int size;
+        std::unordered_map<Word, Byte> memory;
 };
 #endif

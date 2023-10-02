@@ -23,6 +23,10 @@ using namespace std;
 
 #define UNIT_TEST(testname) add_test(#testname, testname)
 
+#define ASSERT(CONDITION) if (!(CONDITION)) { return false; }
+#define ASSERT_FALSE(CONDITION) if (CONDITION) { return false; }
+#define ASSERT_NOTNULL(EXPRESSION) if (EXPRESSION == 0) { return false; }
+
 class TestBase {
     public:
         TestBase(string testname) {

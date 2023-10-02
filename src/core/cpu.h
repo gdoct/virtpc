@@ -12,10 +12,11 @@
 
 class Cpu {
     public:
-        explicit Cpu(Bus* bus, Clock* clock);
-        explicit Cpu(Cpu* cpu);
-        
-        Memory* get_Memory() const { return memory; }
+        Cpu();
+        Cpu(Cpu& other);
+        Cpu(Bus* cpubus, Clock* clock, Memory* memory);
+
+        Memory* get_Memory() const { return memory.get(); }
 
         Byte get_x() const;
         void set_x(Byte x);
@@ -47,8 +48,9 @@ class Cpu {
         Word mc;
         Byte status;
 
-        Bus* bus;
-        Memory* memory = new Memory(65536);
+        const std::unique_ptr<Bus> bus;
+        const std::unique_ptr<Clock> clock;
+        const std::unique_ptr<Memory> memory;
         Byte fetch_next_byte();
         Word fetch_next_word();
         void process_instruction(Opcodes instruction) const;

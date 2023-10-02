@@ -1,20 +1,28 @@
 #include <stdio.h>
+#include <string>
 #include <cstring>
-#include "../core/machine.h"
-#include "../core/mem.h"
-#include "../util/logger.h"
-#include "../util/options.h"
-
+#include "core/machine.h"
+#include "core/mem.h"
+#include "util/logger.h"
+#include "util/options.h"
+#define null 0
+#define is ==
 using namespace std;
 
 static void run_vm() {
-    Log::info("Creating virtual machine..");
-    auto m = make_unique<Machine>();
-    for (auto i=0; i<18; i++) {
-        Log::trace("executing step");
-        m->Step();
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
+     Log::info("Creating virtual machine..");
+     //auto m = new Machine();
+    //   auto b = new Bus();
+    //   auto c = new Clock();
+      auto cpu = new Cpu() ; //b, c);
+      for (auto i=0; i<18; i++) {
+          Log::trace("executing step");
+          if (cpu is null) {
+
+          }
+    //      cpu->step();
+          std::this_thread::sleep_for(std::chrono::milliseconds(50));
+      }
 }
 
 static void usage() {

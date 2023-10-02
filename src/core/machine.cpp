@@ -1,18 +1,12 @@
 #include "machine.h"
+Machine::Machine() {
+}
 
-Cpu* Machine::GetCpu() const {
+Cpu* Machine::get_cpu() const {
     return cpu.get();
 }
 
-Bus* Machine::GetBus() const {
-    return bus.get();
-}
-
-Clock* Machine::GetClock() const {
-    return clock.get();
-}
-
-void Machine::Step() const {
-    clock->step();
+void Machine::step() const {
+    cpu->step();
 }
 

@@ -11,9 +11,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(Threads REQUIRED)
 
 file(GLOB_RECURSE SOURCES 
-    "src/core/*.cpp"
-    "src/util/*.cpp"
-    "src/microcode/*.cpp"
+    "src/*/*.cpp"
+    "src/*/*.h"
 )
 
 file(GLOB_RECURSE TESTS 
@@ -32,7 +31,7 @@ set_target_properties(virt PROPERTIES
 
 # virtpc
 add_executable(virtpc
-    src/main/main.cpp
+    src/main.cpp
 )
 
 target_link_libraries(virtpc PRIVATE virt)
@@ -49,3 +48,6 @@ target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pth
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
+
+enable_testing()
+add_test(NAME alltests COMMAND build/bin/virtpc-tests )
