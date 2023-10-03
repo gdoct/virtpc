@@ -14,16 +14,18 @@ std::string format_result(TestRunResult& result) {
   return output_stream.str();
 }
 
-void TestRunner::run_all_tests(std::vector<TestBase*> tests)  {
+int TestRunner::run_all_tests(std::vector<TestBase*> &tests)  {
   vector<TestRunResult> results;
   for(auto test: tests) {
       Log::trace("Running tests: " + test->name);
       auto result = test->run_all();
       results.push_back(result);
   }
-
+  int total = 0;
   for (auto result: results) {
       auto resultout = format_result(result);
+      total += result.failed();
       Log::info(resultout);
   }
+  return total;
 }

@@ -5,7 +5,9 @@ using namespace std;
 
 const Microcode s_microcode = Microcode::load();
 
-Cpu::Cpu() : bus(new Bus()), clock(new Clock()), memory(new Memory()) {
+Cpu::Cpu() : bus(new Bus()), 
+             clock(new Clock()), 
+             memory(new Memory()) {
     memory->clear();
     clock->registerCallback(std::bind(&Cpu::clocktick, this));
 }
@@ -44,7 +46,7 @@ void Cpu::set_status(Byte newstatus){ status = newstatus; }
 
 Byte Cpu::fetch_next_byte() {
     auto data = memory->read_byte(pc);
-    pc++;
+    pc += 1;
     return data;
 }
 

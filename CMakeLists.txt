@@ -23,7 +23,7 @@ file(GLOB_RECURSE TESTS
 # virtlib.o
 add_library(virt ${SOURCES})
 target_link_libraries(virt PRIVATE Threads::Threads)
-target_compile_options(virt PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+#target_compile_options(virt PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
 set_target_properties(virt PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
@@ -44,10 +44,13 @@ set_target_properties(virtpc PROPERTIES
 add_executable(virtpc-tests ${TESTS})
 
 target_link_libraries(virtpc-tests PRIVATE virt)
-target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+#target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
 
 enable_testing()
-add_test(NAME alltests COMMAND build/bin/virtpc-tests )
+add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)
+add_test(NAME machine COMMAND build/bin/virtpc-tests MachineTests)
+add_test(NAME memory COMMAND build/bin/virtpc-tests MemoryTests)
+add_test(NAME cpu COMMAND build/bin/virtpc-tests CpuTests)

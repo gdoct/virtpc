@@ -41,12 +41,12 @@ class Cpu {
     private: 
         void clocktick();
 
-        Byte x;
-        Byte y;
-        Byte acc;
-        Word pc;
-        Word mc;
-        Byte status;
+        Byte x      = 0;
+        Byte y      = 0;
+        Byte acc    = 0;
+        Word pc     = 0;
+        Word mc     = 0;
+        Byte status = 0;
 
         const std::unique_ptr<Bus> bus;
         const std::unique_ptr<Clock> clock;

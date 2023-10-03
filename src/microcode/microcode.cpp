@@ -23,10 +23,6 @@ int Microcode::get_step_count(Opcodes instruction) const {
 }
 
 MicroInstruction Microcode::get_step(Opcodes instruction, int step) const {
-    if (step > 0) {
-        auto p = step % (Byte) instruction;
-        if (p > 0) Log::error("whatever");
-    }
     MicroInstruction mc;
     return mc;
 }

@@ -1,5 +1,5 @@
 #include "machine.h"
-Machine::Machine() {
+Machine::Machine() : cpu(new Cpu()) {
 }
 
 Cpu* Machine::get_cpu() const {

@@ -23,9 +23,9 @@ using namespace std;
 
 #define UNIT_TEST(testname) add_test(#testname, testname)
 
-#define ASSERT(CONDITION) if (!(CONDITION)) { return false; }
-#define ASSERT_FALSE(CONDITION) if (CONDITION) { return false; }
-#define ASSERT_NOTNULL(EXPRESSION) if (EXPRESSION == 0) { return false; }
+#define ASSERT(CONDITION, MESSAGE) if (!(CONDITION)) { Log::error(MESSAGE); return false; }
+#define ASSERT_FALSE(CONDITION, MESSAGE) if (CONDITION) { Log::error(MESSAGE); return false; }
+#define ASSERT_NOTNULL(EXPRESSION, MESSAGE) if (EXPRESSION == 0) { Log::error(MESSAGE); return false; }
 
 class TestBase {
     public:

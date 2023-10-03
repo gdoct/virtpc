@@ -26,7 +26,8 @@ memory_beyondbounds_shouldnotcrash(void) {
     auto mem = Memory(100);
     mem.write(1234, (Byte)42);
     auto val = mem.read_byte(1234);
-    return (val == 0);
+    ASSERT(val == 0, "value shouod be zero");
+    return true;
 }
 
 void MemoryTests::register_tests() {

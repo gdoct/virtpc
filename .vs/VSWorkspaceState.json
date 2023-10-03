@@ -9,11 +9,10 @@
     "",
     "\\src",
     "\\src\\core",
-    "\\src\\main",
     "\\src\\microcode",
-    "\\src\\test",
+    "\\test",
     "\\Testing"
   ],
-  "SelectedNode": "\\LICENSE",
+  "SelectedNode": "\\out",
   "PreviewInSolutionExplorer": false
 }
