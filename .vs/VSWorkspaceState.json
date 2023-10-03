@@ -11,8 +11,9 @@
     "\\src\\core",
     "\\src\\microcode",
     "\\test",
-    "\\Testing"
+    "\\Testing",
+    "\\test\\framework"
   ],
-  "SelectedNode": "\\out",
+  "SelectedNode": "\\test\\main.cpp",
   "PreviewInSolutionExplorer": false
 }
