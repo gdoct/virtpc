@@ -23,13 +23,13 @@ static void write(LogLevel logLevel, string* message) {
     struct tm local_time;
     time(&current_time);
     char time_str[9];
-#ifdef _MSC_VER // msvc does not recognize localtime_r
+//#ifdef _MSC_VER // msvc does not recognize localtime_r
     localtime_s(&local_time, &current_time);
     strftime(time_str, 9, "%T", &local_time);
-#else
-    auto local = localtime_r(&current_time, &local_time);
-    strftime(time_str, 9, "%T", &local);
-#endif
+//#else
+//    auto local = localtime_r(&current_time, &local_time);
+//    strftime(time_str, 9, "%T", &local);
+//#endif
     printf("[%s] %s %s\n", prefix.c_str(), time_str, message->c_str());
 }  
 
