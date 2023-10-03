@@ -17,6 +17,9 @@ public:
         }
         else if (name == "CpuTests") {
             return std::make_unique<CpuTests>();
+        }
+        else if (name == "ClockTests") {
+            return std::make_unique<ClockTests>();
         } else {
             return nullptr;
         }

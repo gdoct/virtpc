@@ -8,41 +8,32 @@
 
 using namespace std;
 
-Clock::Clock() {}
-
-Clock::Clock(Clock& other) : callbacks(other.callbacks), running(other.running) {
-
-}
-
-void Clock::registerCallback(const Callback& callback) {
-    callbacks.push_back(callback);
+void Clock::registerCallback(const std::function<void()>& callback) {
+    this->callbacks.push_back(callback);
 }
 
 // Start the clock
 void Clock::start(int interval_ms) {
-    running = true;
-    thread = std::thread(&Clock::tick, this, interval_ms);
+    this->running = true;
+    this->thread = std::jthread([this, interval_ms] { this->tick(interval_ms); });
 }
 
 // Stop the clock
 void Clock::stop() {
-    running = false;
-    if (thread.joinable()) {
-        thread.join();
-    }
+    this->running = false;
 }
 
 void Clock::tick(int interval_ms) const {
-    while (running) {
+    while (this->running) {
         std::this_thread::sleep_for(std::chrono::milliseconds(interval_ms));
-        for (const auto &callback : callbacks) {
+        for (const auto &callback : this->callbacks) {
             callback();
         }
     }
 }
 
 void Clock::step() const {
-    for (const auto &callback : callbacks) {
+    for (const auto &callback : this->callbacks) {
         callback();
     }
 }

@@ -23,6 +23,9 @@ int Microcode::get_step_count(Opcodes instruction) const {
 }
 
 MicroInstruction Microcode::get_step(Opcodes instruction, int step) const {
+    if (instruction == Opcodes::CLD_IMP && step < 0) {
+        Log::warn("unpossible");
+    }
     MicroInstruction mc;
     return mc;
 }

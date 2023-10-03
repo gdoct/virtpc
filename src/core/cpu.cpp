@@ -9,11 +9,11 @@ Cpu::Cpu() : bus(new Bus()),
              clock(new Clock()), 
              memory(new Memory()) {
     memory->clear();
-    clock->registerCallback(std::bind(&Cpu::clocktick, this));
+    clock->registerCallback( [this] { this->clocktick(); } );
 }
 
 Cpu::Cpu(Bus* cpubus, Clock* clock,  Memory* memory) : bus(cpubus), clock(clock), memory(memory) {
-    clock->registerCallback(std::bind(&Cpu::clocktick, this));
+    clock->registerCallback([this] { this->clocktick(); });
 }
 
 Cpu::Cpu(Cpu& other) : x(other.x), 
@@ -23,7 +23,7 @@ Cpu::Cpu(Cpu& other) : x(other.x),
                        mc(other.mc), 
                        status(other.status),
                        bus(new Bus(*other.bus)),
-                       clock(new Clock(*other.clock)),
+                       clock(),
                        memory(new Memory(*other.memory)) {
         }
 

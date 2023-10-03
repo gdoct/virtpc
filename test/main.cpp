@@ -15,7 +15,7 @@ string get_first_arg(int argc, char* argv[]) {
 }
 
 int run_all_tests() {
-    vector<string> testNames = { "MemoryTests", "MachineTests", "LoggerTests", "CpuTests" };
+    vector<string> testNames = { "MemoryTests", "MachineTests", "LoggerTests", "CpuTests", "ClockTests" };
     vector<TestBase*> tests;
     vector<unique_ptr<TestBase>> testclassess;
 

@@ -8,20 +8,17 @@
 #include <thread>
 #include <chrono>
 
-using Callback = std::function<void()>;
 
 class Clock {
 public:
-    Clock();
-    Clock(Clock& other);
-    void registerCallback(const Callback& callback);
+    void registerCallback(const std::function<void()>& callback);
     void start(int interval_ms);
     void stop();
     void step() const;
     
 private:
-    std::vector<Callback> callbacks;
-    std::thread thread;
+    std::vector<std::function<void()>> callbacks = std::vector<std::function<void()>>();
+    std::jthread thread;
     bool running = false;
 
     void tick(int interval_ms) const;

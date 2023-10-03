@@ -7,13 +7,13 @@
   },
   "ExpandedNodes": [
     "",
+    "\\Local settings (.vs)",
     "\\src",
     "\\src\\core",
     "\\src\\microcode",
-    "\\test",
     "\\Testing",
     "\\test\\framework"
   ],
-  "SelectedNode": "\\test\\main.cpp",
+  "SelectedNode": "\\src\\core\\cpu.cpp",
   "PreviewInSolutionExplorer": false
 }

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(virtualpc)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -24,6 +24,7 @@ file(GLOB_RECURSE TESTS
 add_library(virt ${SOURCES})
 target_link_libraries(virt PRIVATE Threads::Threads)
 #target_compile_options(virt PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+target_compile_options(virt PRIVATE /std:c++20 )
 set_target_properties(virt PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
@@ -36,6 +37,7 @@ add_executable(virtpc
 
 target_link_libraries(virtpc PRIVATE virt)
 #target_compile_options(virtpc PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+target_compile_options(virt PRIVATE /std:c++20 )
 set_target_properties(virtpc PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
@@ -45,6 +47,7 @@ add_executable(virtpc-tests ${TESTS})
 
 target_link_libraries(virtpc-tests PRIVATE virt)
 #target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+target_compile_options(virt PRIVATE /std:c++20 )
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
@@ -54,3 +57,4 @@ add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)
 add_test(NAME machine COMMAND build/bin/virtpc-tests MachineTests)
 add_test(NAME memory COMMAND build/bin/virtpc-tests MemoryTests)
 add_test(NAME cpu COMMAND build/bin/virtpc-tests CpuTests)
+add_test(NAME clock COMMAND build/bin/virtpc-tests ClockTests)
