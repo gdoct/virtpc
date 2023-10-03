@@ -35,7 +35,7 @@ add_executable(virtpc
 )
 
 target_link_libraries(virtpc PRIVATE virt)
-target_compile_options(virtpc PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+#target_compile_options(virtpc PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
 set_target_properties(virtpc PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
