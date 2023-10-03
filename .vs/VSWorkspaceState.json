@@ -11,9 +11,11 @@
     "\\src",
     "\\src\\core",
     "\\src\\microcode",
+    "\\test",
     "\\Testing",
+    "\\test\\core",
     "\\test\\framework"
   ],
-  "SelectedNode": "\\src\\core\\cpu.cpp",
+  "SelectedNode": "\\test\\core\\clock.cpp",
   "PreviewInSolutionExplorer": false
 }

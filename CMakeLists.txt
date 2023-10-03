@@ -23,8 +23,6 @@ file(GLOB_RECURSE TESTS
 # virtlib.o
 add_library(virt ${SOURCES})
 target_link_libraries(virt PRIVATE Threads::Threads)
-#target_compile_options(virt PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
-target_compile_options(virt PRIVATE /std:c++20 )
 set_target_properties(virt PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/lib
@@ -36,8 +34,7 @@ add_executable(virtpc
 )
 
 target_link_libraries(virtpc PRIVATE virt)
-#target_compile_options(virtpc PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
-target_compile_options(virt PRIVATE /std:c++20 )
+
 set_target_properties(virtpc PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
@@ -46,11 +43,20 @@ set_target_properties(virtpc PROPERTIES
 add_executable(virtpc-tests ${TESTS})
 
 target_link_libraries(virtpc-tests PRIVATE virt)
-#target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
-target_compile_options(virt PRIVATE /std:c++20 )
+
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+    target_compile_options(virtpc PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+    target_compile_options(virt PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O2)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(virt PRIVATE /std:c++20 )
+    target_compile_options(virtpc PRIVATE /std:c++20 )
+    target_compile_options(virtpc-tests PRIVATE /std:c++20 )
+endif()
 
 enable_testing()
 add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)
