@@ -41,6 +41,7 @@ set_target_properties(virtpc PROPERTIES
 
 # virtpc-tests
 add_executable(virtpc-tests ${TESTS})
+set_target_properties(virtpc-tests PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
 target_link_libraries(virtpc-tests PRIVATE virt)
 
@@ -57,6 +58,11 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(virtpc PRIVATE /std:c++20 )
     target_compile_options(virtpc-tests PRIVATE /std:c++20 )
 endif()
+
+configure_file(src/microcode.dat ${CMAKE_CURRENT_BINARY_DIR}/microcode.dat COPYONLY)
+
+add_custom_target(unittests)
+add_dependencies(unittests virtpc-tests virt)
 
 enable_testing()
 add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)

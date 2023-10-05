@@ -20,7 +20,7 @@ private:
     std::vector<std::function<void()>> callbacks = std::vector<std::function<void()>>();
     std::jthread thread;
     bool running = false;
-
+    int current_timeout;
     void tick(int interval_ms) const;
 };
 #endif

@@ -25,7 +25,9 @@ using namespace std;
 
 #define ASSERT(CONDITION, MESSAGE) if (!(CONDITION)) { Log::error(MESSAGE); return false; }
 #define ASSERT_FALSE(CONDITION, MESSAGE) if (CONDITION) { Log::error(MESSAGE); return false; }
-#define ASSERT_NOTNULL(EXPRESSION, MESSAGE) if (EXPRESSION == 0) { Log::error(MESSAGE); return false; }
+#define ASSERT_EQUAL(ARG1, ARG2, MESSAGE) if (ARG1 != ARG2) { Log::error(MESSAGE); return false; }
+#define ASSERT_NOTEQUAL(ARG1, ARG2, MESSAGE) if (ARG1 == ARG2) { Log::error(MESSAGE); return false; }
+#define ASSERT_NOTNULL(EXPRESSION, MESSAGE) if (EXPRESSION == nullptr) { Log::error(MESSAGE); return false; }
 
 class TestBase {
     public:

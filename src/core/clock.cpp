@@ -15,12 +15,14 @@ void Clock::registerCallback(const std::function<void()>& callback) {
 // Start the clock
 void Clock::start(int interval_ms) {
     this->running = true;
+    current_timeout = interval_ms;
     this->thread = std::jthread([this, interval_ms] { this->tick(interval_ms); });
 }
 
 // Stop the clock
 void Clock::stop() {
     this->running = false;
+    this_thread::sleep_for(std::chrono::milliseconds(current_timeout));
 }
 
 void Clock::tick(int interval_ms) const {

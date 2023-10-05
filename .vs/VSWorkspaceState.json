@@ -11,11 +11,8 @@
     "\\src",
     "\\src\\core",
     "\\src\\microcode",
-    "\\test",
-    "\\Testing",
-    "\\test\\core",
-    "\\test\\framework"
+    "\\Testing"
   ],
-  "SelectedNode": "\\test\\core\\clock.cpp",
+  "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

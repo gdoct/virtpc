@@ -160,6 +160,7 @@ enum class Opcodes : Byte {
 	SBC_ABS_Y = 0xF9,
 	SBC_ABS_X = 0xFD,
 	INC_ABS_X = 0xFE,
+	E_NOT_IMPL = 0xFF
 };
 
 const std::vector<Byte> _allOpcodes = {
@@ -321,7 +322,7 @@ class OpcodeParser {
 			if (contains(_allOpcodes, data)) {
 				return (Opcodes)data;
 			}
-			return Opcodes::NOP_IMP;
+			return Opcodes::E_NOT_IMPL;
 		}
 };
 
