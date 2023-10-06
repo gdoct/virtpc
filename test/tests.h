@@ -2,4 +2,6 @@
 #include "util/logger.h"
 #include "core/cpu.h"
 #include "core/clock.h"
+#include "core/executionengine.h"
 #include "core/machine.h"
+#include "microcode/microcode.h"

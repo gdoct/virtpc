@@ -2,20 +2,17 @@
 #include "executionengine.h"
 
 using namespace std;
-const string MICROCODE_DAT_FILE = "microcode.dat";
-std::unique_ptr<ExecutionEngine> engine;
+const string MICROCODE_FILENAME = "microcode.dat";
 
 Cpu::Cpu() : bus(new Bus()), 
              clock(new Clock()), 
-             memory(new Memory()){
+             memory(new Memory()),
+             engine(ExecutionEngine::create_execution_engine_ptr(MICROCODE_FILENAME)){
     memory->clear();
-    if (engine == nullptr) {
-        engine = ExecutionEngine::create(MICROCODE_DAT_FILE);
-    }
     clock->registerCallback( [this] { this->clocktick(); } );
 }
 
-Cpu::Cpu(Bus* cpubus, Clock* clock,  Memory* memory) : bus(cpubus), clock(clock), memory(memory) {
+Cpu::Cpu(Bus* cpubus, Clock* clock,  Memory* memory, ExecutionEngine* engine) : bus(cpubus), clock(clock), memory(memory), engine(engine) {
     clock->registerCallback([this] { this->clocktick(); });
 }
 
@@ -27,11 +24,11 @@ Cpu::Cpu(Cpu& other) : x(other.x),
                        status(other.status),
                        bus(new Bus(*other.bus)),
                        clock(),
-                       memory(new Memory(*other.memory)) {
-    if (engine == nullptr) {
-        engine = ExecutionEngine::create(MICROCODE_DAT_FILE);
-    }
+                       memory(new Memory(*other.memory)),
+                       engine(new ExecutionEngine(*other.engine)) {
 }
+
+Cpu::~Cpu() = default;
 
 void Cpu::clocktick() {
     step();
@@ -69,11 +66,5 @@ void Cpu::step() {
  }
 
  void Cpu::process_instruction(Opcodes opcodes) const {
-//    auto stepcount = _engine.get_step_count(opcodes);
     std::cout << "code: " << (Byte) opcodes << endl;
-    // Log::trace("d");
-    // for (int c = 0; c < stepcount; c++) {
-    //     auto step = _engine.get_step(opcodes, c);
-    //     step.execute(this);
-    // }
  }

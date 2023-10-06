@@ -1,21 +1,24 @@
 #ifndef CPU_H
 #define CPU_H
 
+#include <memory>
+
 #include "bus.h"
 #include "clock.h"
 #include "cpustate.h"
 #include "mem.h"
 #include "numbers.h"
 #include "opcodes.h"
-
 #include "../util/logger.h"
+
+class ExecutionEngine; // forward declaration
 
 class Cpu {
     public:
         Cpu();
         Cpu(Cpu& other);
-        Cpu(Bus* cpubus, Clock* clock, Memory* memory);
-
+        Cpu(Bus* cpubus, Clock* clock, Memory* memory, ExecutionEngine* engine);
+        ~Cpu();
         Memory* get_Memory() const { return memory.get(); }
 
         Byte get_x() const;
@@ -51,6 +54,8 @@ class Cpu {
         const std::unique_ptr<Bus> bus;
         const std::unique_ptr<Clock> clock;
         const std::unique_ptr<Memory> memory;
+        std::unique_ptr<ExecutionEngine> engine;
+
         Byte fetch_next_byte();
         Word fetch_next_word();
         void process_instruction(Opcodes instruction) const;
