@@ -48,6 +48,10 @@ target_link_libraries(virtpc-tests PRIVATE virt)
 set_target_properties(virtpc-tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build/bin
 )
+if(APPLE)
+    set(CMAKE_C_COMPILER "/opt/homebrew/bin/gcc-13")
+    set(CMAKE_CXX_COMPILER "/opt/homebrew/bin/g++-13")
+endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(virtpc-tests PRIVATE -Wall -Wextra -pedantic -Werror -pthread -O -Wno-unused-parameter -Wno-unused-function)
@@ -59,9 +63,9 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_compile_options(virtpc-tests PRIVATE /std:c++20 )
 endif()
 
-configure_file(rom/microcode.dat ${CMAKE_CURRENT_BINARY_DIR}/bin/rom/microcode.dat COPYONLY)
-configure_file(rom/c64/64c.251913-01.bin ${CMAKE_CURRENT_BINARY_DIR}/bin/rom/c64/64c.251913-01.bin COPYONLY)
-configure_file(rom/c64/characters.901225-01.bin ${CMAKE_CURRENT_BINARY_DIR}/bin/rom/c64/characters.901225-01.bin COPYONLY)
+configure_file(rom/microcode.dat ${CMAKE_CURRENT_BINARY_DIR}/build/bin/rom/microcode.dat COPYONLY)
+configure_file(rom/c64/64c.251913-01.bin ${CMAKE_CURRENT_BINARY_DIR}/build/bin/rom/c64/64c.251913-01.bin COPYONLY)
+configure_file(rom/c64/characters.901225-01.bin ${CMAKE_CURRENT_BINARY_DIR}/build/bin/rom/c64/characters.901225-01.bin COPYONLY)
 
 add_custom_target(unittests)
 add_dependencies(unittests virtpc-tests virt)

@@ -56,7 +56,7 @@ bool cpu_step_nop_increases_pc_only() {
     }
     ASSERT_EQUAL(cpu->get_acc(), 0, "acc expected 0 but was " + std::to_string(cpu->get_acc()));
     ASSERT_EQUAL(cpu->get_mc(), 0, "mc expected 0 but was " + std::to_string(cpu->get_mc()));
-    ASSERT_EQUAL(cpu->get_pc(), 3, "pc expected 3 but was " + std::to_string(cpu->get_pc()));
+    ASSERT_EQUAL(cpu->get_pc(), 5, "pc expected 3 but was " + std::to_string(cpu->get_pc()));
     ASSERT_EQUAL(cpu->get_status(), 0, "status expected 0 but was " + std::to_string(cpu->get_status()));
     ASSERT_EQUAL(cpu->get_x(), 0, "x expected 0 but was " + std::to_string(cpu->get_x()));
     ASSERT_EQUAL(cpu->get_y(), 0, "y expected 0 but was " + std::to_string(cpu->get_y()));

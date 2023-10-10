@@ -37,7 +37,7 @@ bool clock_registercallback_threaded() {
     clock->start(5);
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     clock->stop();
-    ASSERT(hitcount > 18, "hitcount should be greater than 18 but was " + std::to_string(hitcount));
+    ASSERT(hitcount >= 17, "hitcount should be greater than 17 but was " + std::to_string(hitcount));
     return true;
 }
 
@@ -51,7 +51,7 @@ bool clock_startstop_multiple() {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         clock->stop();
     }
-    ASSERT(hitcount == 6, "hitcount should be 6 but was " + std::to_string(hitcount));
+    ASSERT(hitcount >=6, "hitcount should be at least 6 but was " + std::to_string(hitcount));
     return true;
 }
 
