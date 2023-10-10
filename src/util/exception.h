@@ -1,16 +1,8 @@
-#include <string>
+#ifndef EXCEPTION_H
+#define EXCEPTION_H
 
-class Exception {
-    public:
-        virtual std::string get_name() const = 0;
-};
-
-class StackOverFlowException : public Exception {
-    public:
-        std::string get_name() const override { return "stack overflow"; }
-};
-
-class InvalidAccessException : public Exception {
-    public:
-        std::string get_name() const override { return "invalid address"; }
-};
+#define E_NULLPTR           -(0x01);
+#define E_INVALID_OPCODE    -(0x2A);
+#define E_OVERFLOW			-(0x42);
+#define E_INVALID_STATE     -(0x69);
+#endif

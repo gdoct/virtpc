@@ -1,4 +1,5 @@
 #include "../tests.h"
+#include "../../src/api/constants.h"
 #include "../../src/core/mem.h"
 #include "../../src/util/exception.h"
 
@@ -30,8 +31,19 @@ memory_beyondbounds_shouldnotcrash(void) {
     return true;
 }
 
+ static bool memory_loadshouldload() {
+     auto mem = new Memory(65536);
+     auto fname = Paths::get_path(C64_BASIC_KERNAL_FILENAME);
+     mem->load(fname, 0xc000);
+     auto val = mem->read_word(0xfffc);
+     ASSERT(val == 64738, "rom was not loaded");
+     return true;
+ }
+
 void MemoryTests::register_tests() {
+    UNIT_TEST(memory_loadshouldload);
     UNIT_TEST(memory_shouldstore);
     UNIT_TEST(memory_shouldreturnzero);
     UNIT_TEST(memory_beyondbounds_shouldnotcrash);
 }
+

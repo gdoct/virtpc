@@ -2,5 +2,5 @@
 
 class TestRunner {
     public:
-        static int run_all_tests(vector<TestBase*> &tests);
+        static int run_all_tests(std::vector<TestBase*> &tests);
 };

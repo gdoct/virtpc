@@ -7,10 +7,8 @@
 #include <functional>
 #include <vector>
 #include "../../src/util/logger.h"
-#include "../../src/core/numbers.h"
+#include "../../src/api/numbers.h"
 #include "testrunresult.h"
-
-using namespace std;
 
 #define UNIT_TEST_CLASS(NAME) class NAME : public TestBase {\
     public:\
@@ -31,15 +29,15 @@ using namespace std;
 
 class TestBase {
     public:
-        TestBase(string testname) {
+        TestBase(std::string testname) {
             name = testname;
         }
         virtual void register_tests() = 0;
         TestRunResult run_all();
-        string name;
+        std::string name;
     protected:
-        void add_test(string name, std::function<bool()> implementation);
-        bool run_test(string name);
+        void add_test(std::string name, std::function<bool()> implementation);
+        bool run_test(std::string name);
         std::unordered_map<std::string, std::function<bool()>> testfunctions = std::unordered_map<std::string, std::function<bool()>>();
 };
 #endif

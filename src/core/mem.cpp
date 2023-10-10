@@ -5,55 +5,56 @@
 #include <vector>
 #include <cstdint>
 #include "mem.h"
-#include "numbers.h"
+#include "../api/constants.h"
+#include "../api/numbers.h"
 #include "../util/exception.h"
 
-using namespace std;
+MemoryOptions::MemoryOptions(int size) : size(size), throwOutOfBounds(true) {}
 
-MemoryOptions::MemoryOptions(int size) : size(size) {}
-
-Memory::Memory(Memory& other): size(other.size), memory(other.memory) {}
-Memory::Memory(MemoryOptions options) : size(options.size), memory() {}
-Memory::Memory() : size(4096), memory() {}
+Memory::Memory(Memory& other) : size(other.size), memory(other.memory) { }
+Memory::Memory(MemoryOptions options) : size(options.size), memory(options.size) { clear(); }
+Memory::Memory() : size(4096), memory(4096) { clear(); }
 
 Byte Memory::read_byte(Word address) {
     if (address >= size) {
-        return 0;
-    }
-    if (memory.count(address) == 0) {
         return 0;
     }
     return memory[address];
 }
 
 Word Memory::read_word(Word address) {
-    if (address >= size) {
+    int index = static_cast<int>(address);
+    if ((index + 1) >= size) {
         return 0;
     }
-    auto high = memory[address];
-    auto low = memory[address + 1];
+    auto low = memory[index];
+    auto high = memory[index + 1];
     return ((Word)high << 8) | low;
 }
 
 void Memory::write(Word address, Byte value) {
-    if (address >= size) {
+    int index = static_cast<int>(address);
+    if (index >= size) {
         return;
     }
-    memory[address] = value;
+    memory[index] = value;
 }
 
 void Memory::write(Word address, Word value) {
-    if (address >= size) {
+    int index = static_cast<int>(address);
+    if ((index + 1) >= size) {
         return;
     }
     auto high = (Byte)((value & 0xFF00) >> 8);
     auto low = (Byte)(value & 0x00FF);
-    memory[address] = high;
-    memory[address + 1] = low;
+    memory[index] = low;
+    memory[index + 1] = high;
 }
 
 void Memory::clear() {
-    memory.clear();
+    for (auto addr = 0; addr < size; addr++) {
+        memory[addr] = 0;
+    }
 }
 
 bool writeToFile(const std::string& filename, const std::vector<uint8_t>& data) {
@@ -79,23 +80,9 @@ std::vector<Byte> readFromFile(const std::string& filename) {
     return {};
 }
 
-std::vector<uint8_t> convertMapToVector(std::unordered_map<Word, Byte>& map, int size) {
-    std::vector<uint8_t> vec;
-    for (Word i=0; i < size; i++) {
-        auto val = map.find(i);
-        if (val == map.end()) {
-            vec.push_back(0);
-        }
-        else {
-            vec.push_back(map[i]);
-        }
-    }
-    return vec;
-}
 
-void Memory::dump(string& filename) {
-    auto data = convertMapToVector(memory, size);
-    auto file = writeToFile(filename, data);
+void Memory::dump(const std::string& filename) {
+    auto file = writeToFile(filename, memory);
     if (file) {
         Log::info("Data dumped to file: " + filename);
     } else {
@@ -103,19 +90,20 @@ void Memory::dump(string& filename) {
     }
 }
 
-void Memory::load(string& filename) {
+void Memory::load(const std::string& filename, Word address) {
     clear();
+    int addr = static_cast<int>(address);
     auto data = readFromFile(filename);
-    auto datasize = data.size();
+    int datasize = static_cast<int>(data.size());
+    if ((addr + datasize) > size) {
+        throw E_OVERFLOW;
+    }
     if (datasize > 0) {
-        
-        for (Word i = 0; i < datasize; i++) {
-            if(data[i] != 0) {
-                memory[i] = data[i]; 
-            }
+        for (int i = 0; i < datasize; i++) {
+            memory[addr + i] = data[i];
         }
         Log::info("Data loaded from file: " + filename);
-    } else {
+    } else { 
         Log::error("Failed to open file: " + filename);
     }
 }

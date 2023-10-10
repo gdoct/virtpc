@@ -7,8 +7,8 @@
 #include "clock.h"
 #include "cpustate.h"
 #include "mem.h"
-#include "numbers.h"
 #include "opcodes.h"
+#include "../api/numbers.h"
 #include "../util/logger.h"
 
 class ExecutionEngine; // forward declaration
@@ -19,24 +19,24 @@ class Cpu {
         Cpu(Cpu& other);
         Cpu(Bus* cpubus, Clock* clock, Memory* memory, ExecutionEngine* engine);
         ~Cpu();
-        Memory* get_Memory() const { return memory.get(); }
+        const std::shared_ptr<Memory> get_Memory() { return memory; }
 
-        Byte get_x() const;
+        Byte get_x();
         void set_x(Byte x);
 
-        Byte get_y() const;
+        Byte get_y();
         void set_y(Byte y);
 
-        Byte get_acc() const;
+        Byte get_acc();
         void set_acc(Byte acc);
 
-        Word get_pc() const;
+        Word get_pc();
         void set_pc(Word pc);
 
-        Word get_mc() const;
+        Word get_mc();
         void set_mc(Word mc);
 
-        Byte get_status() const;
+        Byte get_status();
         void set_status(Byte status);
 
         void step();
@@ -53,7 +53,7 @@ class Cpu {
 
         const std::unique_ptr<Bus> bus;
         const std::unique_ptr<Clock> clock;
-        const std::unique_ptr<Memory> memory;
+        const std::shared_ptr<Memory> memory;
         std::unique_ptr<ExecutionEngine> engine;
 
         Byte fetch_next_byte();

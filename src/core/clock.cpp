@@ -6,7 +6,7 @@
 #include <thread>
 #include <chrono>
 
-using namespace std;
+//using namespace std;
 
 void Clock::registerCallback(const std::function<void()>& callback) {
     this->callbacks.push_back(callback);
@@ -22,7 +22,7 @@ void Clock::start(int interval_ms) {
 // Stop the clock
 void Clock::stop() {
     this->running = false;
-    this_thread::sleep_for(std::chrono::milliseconds(current_timeout));
+    std::this_thread::sleep_for(std::chrono::milliseconds(current_timeout));
 }
 
 void Clock::tick(int interval_ms) const {

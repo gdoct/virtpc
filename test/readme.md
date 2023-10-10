@@ -21,8 +21,11 @@ bool my_unit_test() {
 
 # register the tests
 
-finally, implement the register_tests method in the cpp file. each unit test should be registered with the macro UNIT_TEST(..)
+implement the register_tests method in the cpp file. each individual unit test should be registered with the macro UNIT_TEST(..)
 
 void MyUnitTests::register_tests() {
     UNIT_TEST(my_unit_test);
 }
+
+in TestFactory.cpp, add the category for thetest class
+in CMakeLists.txt add the test category to run

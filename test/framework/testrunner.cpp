@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 std::string format_result(TestRunResult& result) {
   std::ostringstream output_stream;
   output_stream << result.modulename 
@@ -15,14 +13,14 @@ std::string format_result(TestRunResult& result) {
 }
 
 int TestRunner::run_all_tests(std::vector<TestBase*> &tests)  {
-  vector<TestRunResult> results;
+  std::vector<TestRunResult> results;
   for(auto test: tests) {
       Log::trace("Running tests: " + test->name);
       auto result = test->run_all();
       results.push_back(result);
   }
   int total = 0;
-  for (auto result: results) {
+  for (TestRunResult result: results) {
       auto resultout = format_result(result);
       total += result.failed();
       Log::info(resultout);

@@ -1,7 +1,5 @@
 #include "logger.h"
 
-using namespace std;
-
 LogLevel _currentLevel = LogLevel::Information;
 std::map<LogLevel, std::string> _logLevelNames = {
                 {LogLevel::Trace, "Dbg"},
@@ -14,7 +12,7 @@ bool shouldWrite(LogLevel logLevel) {
     return ((int)logLevel >= (int)_currentLevel);
 }
 
-static void write(LogLevel logLevel, string* message) {
+static void write(LogLevel logLevel, std::string* message) {
     if (!shouldWrite(logLevel)) {
         return;
     }
@@ -36,35 +34,35 @@ static void write(LogLevel logLevel, string* message) {
     printf("[%s] %s %s\n", prefix.c_str(), time_str, message->c_str());
 }  
 
-void Log::trace(string message) {
+void Log::trace(std::string message) {
     write(LogLevel::Trace, &message);
 }       
 
-void Log::trace(string* message) {
+void Log::trace(std::string* message) {
     write(LogLevel::Trace, message);
 }       
 
-void Log::info(string message) {
+void Log::info(std::string message) {
     write(LogLevel::Information, &message);
 }   
 
-void Log::info(string* message) {
+void Log::info(std::string* message) {
     write(LogLevel::Information, message);
 }   
 
-void Log::warn(string message) {
+void Log::warn(std::string message) {
     write(LogLevel::Warning, &message);
 }   
 
-void Log::warn(string* message) {
+void Log::warn(std::string* message) {
     write(LogLevel::Warning, message);
 }   
 
-void Log::error(string message) {
+void Log::error(std::string message) {
     write(LogLevel::Error, &message);
 }   
 
-void Log::error(string* message) {
+void Log::error(std::string* message) {
     write(LogLevel::Error, message);
 } 
 

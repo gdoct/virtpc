@@ -1,7 +1,5 @@
 #include "options.h"
 
-using namespace std;
-
 const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
     auto flags = ProgramOptions();
     flags.debug = false;
@@ -10,7 +8,7 @@ const ProgramOptions OptionsParser::parse_args(int argc, char *argv[]) {
     flags.test = false;
 
     for (int i = 1; i < argc; i++) {
-        string arg = argv[i];
+        std::string arg = argv[i];
         if (arg[0] == '-')
         {
             if (arg == "-d" || arg == "--debug") {

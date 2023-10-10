@@ -12,14 +12,12 @@ class Clock {
 
 */
 bool clock_canBeCreated() {
-    Log::info("clock_canBeCreated");
     auto clock = new Clock();
     ASSERT(clock  != nullptr, "clock could not be created");
     return true;
 }
 
 bool clock_registercallback() {
-    Log::info("clock_registercallback");
     int hitcount = 0;
     auto callback = [&hitcount] { hitcount += 1; };
     auto clock = new Clock();
@@ -31,28 +29,26 @@ bool clock_registercallback() {
 }
 
 bool clock_registercallback_threaded() {
-    Log::info("clock_registercallback_threaded");
     int hitcount = 0;
     auto callback = [&hitcount] { hitcount += 1; };
     auto clock = new Clock();
     clock->registerCallback(callback);
     ASSERT(hitcount == 0, "hitcount should be 0 but was " + std::to_string(hitcount));
     clock->start(5);
-    this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     clock->stop();
     ASSERT(hitcount > 18, "hitcount should be greater than 18 but was " + std::to_string(hitcount));
     return true;
 }
 
 bool clock_startstop_multiple() {
-    Log::info("clock_startstop_multiple");
     int hitcount = 0;
     auto callback = [&hitcount] { hitcount += 1; };
     auto clock = new Clock();
     clock->registerCallback(callback);
     for (auto i = 0; i < 3; i++){
         clock->start(5);
-        this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
         clock->stop();
     }
     ASSERT(hitcount == 6, "hitcount should be 6 but was " + std::to_string(hitcount));
@@ -67,7 +63,7 @@ bool clock_startstop_shouldnothitwhilepaused() {
     clock->registerCallback(callback);
     for (auto i = 0; i < 3; i++){
         clock->start(5);
-        this_thread::sleep_for(std::chrono::milliseconds(20));
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
         clock->stop();
         ASSERT(hitcount > oldhitcount, "hitcount was not increased while the clock was running");
 
@@ -75,7 +71,7 @@ bool clock_startstop_shouldnothitwhilepaused() {
         // this_thread::sleep_for(std::chrono::milliseconds(5));
         oldhitcount = hitcount;
 
-        this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
         ASSERT(hitcount == oldhitcount, "hitcount was increased while the clock was stopped");
     }
     return true;

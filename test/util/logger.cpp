@@ -1,16 +1,18 @@
 #include "../../src/util/logger.h"
 #include "logger.h"
 #include <regex>
+#include <string>
+#include <sstream>
 #include <thread>
 
-bool verifyOutput(string output, string pattern) {
+bool verifyOutput(std::string output, std::string pattern) {
     if (pattern.empty()) {
         ASSERT(output.empty(), "output was expected empty, but contained '" + output + "'");
     }
     return true;
 }
 
-bool verifyOutput(string output, string pattern, LogLevel level, LogLevel currentlevel) {
+bool verifyOutput(std::string output, std::string pattern, LogLevel level, LogLevel currentlevel) {
     if (level < currentlevel) {
         return verifyOutput(output, "");
     }
@@ -18,13 +20,14 @@ bool verifyOutput(string output, string pattern, LogLevel level, LogLevel curren
 }
 
 bool logger_shouldlog_bylevel(LogLevel level) {
+    auto oldlevel = Log::get_LogLevel();
     Log::set_LogLevel(level);
-    const string helloworld = "Hello, world!";
+    const std::string helloworld = "Hello, world!";
     std::ostringstream oss;
-    string rt = "\\[Dbg\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
-    string ri = "\\[Inf\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
-    string re = "\\[Err\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
-    string rw = "\\[Wrn\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
+    std::string rt = "\\[Dbg\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
+    std::string ri = "\\[Inf\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
+    std::string re = "\\[Err\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
+    std::string rw = "\\[Wrn\\] \\d{2}:\\d{2}:\\d{2} Hello, world!";
     std::streambuf* oldCoutStreamBuf = std::cout.rdbuf();
     std::cout.rdbuf(oss.rdbuf());
 
@@ -42,7 +45,8 @@ bool logger_shouldlog_bylevel(LogLevel level) {
 
     // Restore original stdout
     std::cout.rdbuf(oldCoutStreamBuf);
-    this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    Log::set_LogLevel(oldlevel);
     return true;
 }
 

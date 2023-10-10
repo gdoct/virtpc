@@ -2,8 +2,8 @@
 #define MEM_H
 #include <iostream>
 #include <string>
-#include <unordered_map>
-#include "numbers.h"
+#include <vector>
+#include "../api/numbers.h"
 #include "../util/logger.h"
 
 struct MemoryOptions {
@@ -24,13 +24,13 @@ class Memory {
         void write(Word address, Word value);
         void clear();
 
-        void dump(std::string& filename);
-        void load(std::string& filename);
+        void dump(const std::string& filename);
+        void load(const std::string& filename, Word address);
         
         int get_size();
 
     private:
         const int size;
-        std::unordered_map<Word, Byte> memory;
+        std::vector<Byte> memory;
 };
 #endif

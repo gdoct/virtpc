@@ -1,13 +1,12 @@
 #include "cpu.h"
 #include "executionengine.h"
-
-using namespace std;
-const string MICROCODE_FILENAME = "microcode.dat";
+#include "../api/constants.h"
+//using namespace std;
 
 Cpu::Cpu() : bus(new Bus()), 
              clock(new Clock()), 
              memory(new Memory()),
-             engine(ExecutionEngine::create_execution_engine_ptr(MICROCODE_FILENAME)){
+             engine(ExecutionEngine::create_execution_engine_ptr(Paths::get_path(MICROCODE_FILENAME))){
     memory->clear();
     clock->registerCallback( [this] { this->clocktick(); } );
 }
@@ -23,28 +22,30 @@ Cpu::Cpu(Cpu& other) : x(other.x),
                        mc(other.mc), 
                        status(other.status),
                        bus(new Bus(*other.bus)),
-                       clock(),
+                       clock(new Clock()),
                        memory(new Memory(*other.memory)),
                        engine(new ExecutionEngine(*other.engine)) {
+    clock->registerCallback( [this] { this->clocktick(); } );
 }
 
+// needed for the forward declaration
 Cpu::~Cpu() = default;
 
 void Cpu::clocktick() {
     step();
 }
 
-Byte Cpu::get_x() const { return x; }
+Byte Cpu::get_x() { return x; }
 void Cpu::set_x(Byte newx){ x = newx; }
-Byte Cpu::get_y() const { return y; }
+Byte Cpu::get_y() { return y; }
 void Cpu::set_y(Byte newy){ y = newy; }
-Byte Cpu::get_acc() const { return acc; }
+Byte Cpu::get_acc() { return acc; }
 void Cpu::set_acc(Byte newacc){ acc = newacc; }
-Word Cpu::get_pc() const { return pc; }
+Word Cpu::get_pc() { return pc; }
 void Cpu::set_pc(Word newpc){ pc = newpc; }
-Word Cpu::get_mc() const { return mc; }
+Word Cpu::get_mc() { return mc; }
 void Cpu::set_mc(Word newmc){ mc = newmc; }
-Byte Cpu::get_status() const { return status; }
+Byte Cpu::get_status() { return status; }
 void Cpu::set_status(Byte newstatus){ status = newstatus; }
 
 Byte Cpu::fetch_next_byte() {
@@ -60,11 +61,9 @@ Word Cpu::fetch_next_word() {
 }
 
 void Cpu::step() { 
-    auto instruction = fetch_next_byte();
-    auto opcode = OpcodeParser::parse(instruction);
-    process_instruction(opcode);
+    engine->step(this);
  }
 
  void Cpu::process_instruction(Opcodes opcodes) const {
-    std::cout << "code: " << (Byte) opcodes << endl;
+    std::cout << "code: " << (Byte) opcodes << std::endl;
  }

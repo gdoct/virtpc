@@ -5,7 +5,7 @@
 #include <functional>
 #include <vector>
 #include "../../src/util/logger.h"
-#include "../../src/core/numbers.h"
+#include "../../src/api/numbers.h"
 
 struct TestRunResult {
     explicit TestRunResult(const std::string name) : modulename(name) {
@@ -36,7 +36,7 @@ struct TestRunResult {
         return count;
     }
 
-    int total() { return testresults.size(); }
+    int total() { return static_cast<int>(testresults.size()); }
 
     short score() { 
         int count = total();

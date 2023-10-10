@@ -38,28 +38,28 @@ bool cpu_shouldcreate() {
 
 bool cpu_should_initialize_properly() {
     auto cpu = new Cpu();
-    ASSERT_EQUAL(cpu->get_acc(), 0, "acc");
-    ASSERT_EQUAL(cpu->get_mc(), 0, "mc");
-    ASSERT_EQUAL(cpu->get_pc(), 0, "pc");
-    ASSERT_EQUAL(cpu->get_status(), 0, "status");
-    ASSERT_EQUAL(cpu->get_x(), 0, "x");
-    ASSERT_EQUAL(cpu->get_y(), 0, "y");
-    
+    ASSERT_EQUAL(cpu->get_acc(), 0, "acc expected 0 but was " + std::to_string(cpu->get_acc()));
+    ASSERT_EQUAL(cpu->get_mc(), 0, "mc expected 0 but was " + std::to_string(cpu->get_mc()));
+    ASSERT_EQUAL(cpu->get_pc(), 0, "pc expected 0 but was " + std::to_string(cpu->get_pc()));
+    ASSERT_EQUAL(cpu->get_status(), 0, "status expected 0 but was " + std::to_string(cpu->get_status()));
+    ASSERT_EQUAL(cpu->get_x(), 0, "x expected 0 but was " + std::to_string(cpu->get_x()));
+    ASSERT_EQUAL(cpu->get_y(), 0, "y expected 0 but was " + std::to_string(cpu->get_y()));
+
     return true;
 }
 
 bool cpu_step_nop_increases_pc_only() {
     auto cpu = new Cpu();
     ASSERT_EQUAL(cpu->get_pc(), 0, "pc");
-
-    cpu -> step();
-
-    ASSERT_EQUAL(cpu->get_acc(), 0, "acc");
-    ASSERT_EQUAL(cpu->get_mc(), 0, "mc");
-    ASSERT_EQUAL(cpu->get_pc(), 1, "pc");
-    ASSERT_EQUAL(cpu->get_status(), 0, "status");
-    ASSERT_EQUAL(cpu->get_x(), 0, "x");
-    ASSERT_EQUAL(cpu->get_y(), 0, "y");
+    for (int q = 0; q < 10; q++) {
+        cpu->step();
+    }
+    ASSERT_EQUAL(cpu->get_acc(), 0, "acc expected 0 but was " + std::to_string(cpu->get_acc()));
+    ASSERT_EQUAL(cpu->get_mc(), 0, "mc expected 0 but was " + std::to_string(cpu->get_mc()));
+    ASSERT_EQUAL(cpu->get_pc(), 3, "pc expected 3 but was " + std::to_string(cpu->get_pc()));
+    ASSERT_EQUAL(cpu->get_status(), 0, "status expected 0 but was " + std::to_string(cpu->get_status()));
+    ASSERT_EQUAL(cpu->get_x(), 0, "x expected 0 but was " + std::to_string(cpu->get_x()));
+    ASSERT_EQUAL(cpu->get_y(), 0, "y expected 0 but was " + std::to_string(cpu->get_y()));
 
     return true;
 }
@@ -67,44 +67,44 @@ bool cpu_step_nop_increases_pc_only() {
 bool cpu_setters() {
     auto cpu = new Cpu();
     cpu->set_acc(123);
-    ASSERT_EQUAL(cpu->get_acc(), 123, "acc");
+    ASSERT_EQUAL(cpu->get_acc(), 123, "acc should be 123 but was " + std::to_string(cpu->get_acc()));
     cpu->set_acc(static_cast<Byte>(257));
-    ASSERT_NOTEQUAL(cpu->get_acc(), 257, "acc overflow");
+    ASSERT_NOTEQUAL(cpu->get_acc(), 257, "acc overflow did not function as expected");
     cpu->set_acc(-1);
-    ASSERT_NOTEQUAL(cpu->get_acc(), -1, "acc negative");
+    ASSERT_NOTEQUAL(cpu->get_acc(), -1, "acc negative did not function as expected");
 
     cpu->set_mc(456);
     ASSERT_EQUAL(cpu->get_mc(), 456, "mc");
     cpu->set_mc(static_cast<Word>(1234567));
-    ASSERT_NOTEQUAL(cpu->get_mc(), 1234567, "mc overflow");
+    ASSERT_NOTEQUAL(cpu->get_mc(), 1234567, "mc overflow did not function as expected");
     cpu->set_mc(-1);
-    ASSERT_NOTEQUAL(cpu->get_mc(), -1, "mc negative");
+    ASSERT_NOTEQUAL(cpu->get_mc(), -1, "mc negative did not function as expected");
 
     cpu->set_pc(789);
     ASSERT_EQUAL(cpu->get_pc(), 789, "pc");
     cpu->set_pc(65534);
     ASSERT_EQUAL(cpu->get_pc(), 65534, "pc");
     cpu->set_pc(static_cast<Word>(65537));
-    ASSERT_NOTEQUAL(cpu->get_pc(), 65537, "pc overflow");
+    ASSERT_NOTEQUAL(cpu->get_pc(), 65537, "pc overflow did not function as expected");
     cpu->set_pc(-1);
-    ASSERT_NOTEQUAL(cpu->get_pc(), -1, "pc negative");
+    ASSERT_NOTEQUAL(cpu->get_pc(), -1, "pc negative did not function as expected");
 
     cpu->set_status(222);
     ASSERT_EQUAL(cpu->get_status(), 222, "status");
     cpu->set_status(static_cast<Byte>(256));
-    ASSERT_NOTEQUAL(cpu->get_status(), 256, "status overflow");
+    ASSERT_NOTEQUAL(cpu->get_status(), 256, "status overflow did not function as expected");
     cpu->set_status(-1);
-    ASSERT_NOTEQUAL(cpu->get_status(), -1, "status negative");
+    ASSERT_NOTEQUAL(cpu->get_status(), -1, "status negative did not function as expected");
 
     cpu->set_x(42);
     ASSERT_EQUAL(cpu->get_x(), 42, "x");
     cpu->set_x(static_cast<Byte>(420));
-    ASSERT_NOTEQUAL(cpu->get_x(), 420, "x overflow");
+    ASSERT_NOTEQUAL(cpu->get_x(), 420, "x overflow did not function as expected");
 
     cpu->set_y(128);
     ASSERT_EQUAL(cpu->get_y(), 128, "y");
     cpu->set_y(-5);
-    ASSERT_NOTEQUAL(cpu->get_y(), -5, "y negative");
+    ASSERT_NOTEQUAL(cpu->get_y(), -5, "y negative did not function as expected");
 
     return true;
 }
