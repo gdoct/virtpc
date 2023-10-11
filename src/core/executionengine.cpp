@@ -48,7 +48,7 @@ void ExecutionEngine::step(Cpu* cpu) {
     }
     
     this->currentstep++;
-    if (this->currentstep >= stepcount) {
+    if (this->currentstep > stepcount) {
         this->currentstep = 0;
         this->stepcount = 2;
     }

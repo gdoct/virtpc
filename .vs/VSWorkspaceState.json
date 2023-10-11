@@ -7,13 +7,10 @@
   },
   "ExpandedNodes": [
     "",
-    "\\rom",
     "\\src",
-    "\\src\\core",
-    "\\src\\microcode",
-    "\\src\\util",
-    "\\Testing"
+    "\\test",
+    "\\test\\core"
   ],
-  "SelectedNode": "\\src\\core\\executionengine.cpp",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
