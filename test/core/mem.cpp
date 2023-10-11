@@ -39,7 +39,7 @@ memory_beyondbounds_shouldnotcrash(void) {
      ASSERT(val == 64738, "rom was not loaded");
      return true;
  }
-
+  
 void MemoryTests::register_tests() {
     UNIT_TEST(memory_loadshouldload);
     UNIT_TEST(memory_shouldstore);

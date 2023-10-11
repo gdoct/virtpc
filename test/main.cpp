@@ -20,7 +20,7 @@ std::string get_first_arg(int argc, char* argv[]) {
 }
 
 int run_all_tests() {
-    std::vector<std::string> testNames = { "MemoryTests", "MachineTests", "LoggerTests", "CpuTests", "ClockTests" };
+    std::vector<std::string> testNames = { "MemoryTests", "MachineTests", "CpuTests", "ClockTests", "InstructionTests", "MicrocodeTests", "ExecutionEngineTests", "LoggerTests" };
     std::vector<TestBase*> tests;
     std::vector<std::unique_ptr<TestBase>> testclassess;
 
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
         Paths::set_rootpath(directory_path);
     }
 #endif
-    auto testname = get_first_arg(argc, argv);
+    std::string testname = "InstructionTests"; // get_first_arg(argc, argv);
     if (testname == "") {
         Log::info("running all unit tests");
         return run_all_tests();

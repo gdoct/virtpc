@@ -1,10 +1,10 @@
 #include "instructionstep.h"
 
-std::unique_ptr<StepExpression> StepExpression::compile(std::string &expression, Cpu *cpu) {
+std::shared_ptr<StepExpression> StepExpression::compile(std::string &expression, Cpu *cpu) {
     if (expression == "" || cpu == nullptr) {
 
     }
-    return std::make_unique<StepExpression>();
+    return std::make_shared<StepExpression>();
 }
 
 void StepExpression::execute() {
@@ -14,11 +14,13 @@ void StepExpression::execute() {
 void InstructionStep::execute() {
     Log::info("executing microcode step " + std::to_string(this->stepid));
     for (auto& expression : expressions) {
-        expression.execute();
+        expression->execute();
     }
 }
-//
-//
-//InstructionStep InstructionStep::create(uint8_t stepid, Byte instructionid, std::string& operation) {
-//    return InstructionStep();
-//}
+
+void InstructionStep::compile(Cpu* cpu) {
+    for (auto& expression : expressionstrings) {
+        auto compiled = StepExpression::compile(expression, cpu);
+        expressions.push_back(compiled);
+    }
+}

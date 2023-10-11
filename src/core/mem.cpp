@@ -13,7 +13,7 @@ MemoryOptions::MemoryOptions(int size) : size(size), throwOutOfBounds(true) {}
 
 Memory::Memory(Memory& other) : size(other.size), memory(other.memory) { }
 Memory::Memory(MemoryOptions options) : size(options.size), memory(options.size) { clear(); }
-Memory::Memory() : size(4096), memory(4096) { clear(); }
+Memory::Memory() : size(65536), memory(65536) { clear(); }
 
 Byte Memory::read_byte(Word address) {
     if (address >= size) {
@@ -77,6 +77,9 @@ std::vector<Byte> readFromFile(const std::string& filename) {
             return buffer;
         }
     }
+    else {
+        std::cout << "file not found: " << filename << std::endl;
+    }
     return {};
 }
 
@@ -102,7 +105,7 @@ void Memory::load(const std::string& filename, Word address) {
         for (int i = 0; i < datasize; i++) {
             memory[addr + i] = data[i];
         }
-        Log::info("Data loaded from file: " + filename);
+        Log::trace("Data loaded from file: " + filename);
     } else { 
         Log::error("Failed to open file: " + filename);
     }

@@ -7,12 +7,13 @@
   },
   "ExpandedNodes": [
     "",
+    "\\rom",
     "\\src",
     "\\src\\core",
     "\\src\\microcode",
     "\\src\\util",
     "\\Testing"
   ],
-  "SelectedNode": "\\src\\microcode\\instructionstep.cpp",
+  "SelectedNode": "\\src\\core\\executionengine.cpp",
   "PreviewInSolutionExplorer": false
 }

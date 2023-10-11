@@ -54,7 +54,7 @@ class StepExpression {
     public:
         StepExpression() = default;
         void execute();
-        static std::unique_ptr<StepExpression> compile(std::string &expression, Cpu *cpu);
+        static std::shared_ptr<StepExpression> compile(std::string &expression, Cpu *cpu);
 
     private:
         OperatorType operandType;
@@ -65,18 +65,15 @@ class StepExpression {
 
 class InstructionStep {
     public:
-        InstructionStep(int stepid) : stepid(stepid), expressions(std::vector<StepExpression>()) {}
-        InstructionStep(int stepid, std::vector<StepExpression> expressions) : stepid(stepid), expressions(expressions) {}
-        //InstructionStep(std::vector<StepExpression> expressions) : stepid(0), expressions(expressions) {}
-
-        //// Delete the copy constructor and the copy assignment operator
-        ////InstructionStep(const InstructionStep&) = delete;
-        ////InstructionStep& operator=(const InstructionStep&) = delete;
+        InstructionStep() : expressions(std::vector<std::shared_ptr<StepExpression>>()), expressionstrings(std::vector<std::string>()) {}
+        InstructionStep(int stepid, std::vector<std::shared_ptr<StepExpression>> expressions, std::vector<std::string> expressionstrings) : stepid(stepid), expressions(expressions), expressionstrings(expressionstrings) {}
 
         void execute();
-
-        const uint8_t stepid;
-        std::vector<StepExpression> expressions;
+        void compile(Cpu* cpu);
+        Byte stepid = 1;
+        Word instruction = 0;
+        std::vector<std::shared_ptr<StepExpression>> expressions;
+        std::vector<std::string> expressionstrings;
 };
 
 #endif

@@ -10,7 +10,7 @@ static std::string rootpath = "";
 
 static std::string combine_paths(std::string path1, std::string path2) {
 #ifdef _MSC_VER
-    return path1 + "..\\..\\" + path2;
+    return path1 + "..\\..\\..\\..\\..\\build\\bin\\" + path2;
 #else
     return path1 + "/" + path2;
 #endif

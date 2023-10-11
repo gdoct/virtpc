@@ -20,6 +20,7 @@ class Cpu {
         Cpu(Bus* cpubus, Clock* clock, Memory* memory, ExecutionEngine* engine);
         ~Cpu();
         const std::shared_ptr<Memory> get_Memory() { return memory; }
+        const std::shared_ptr<ExecutionEngine> get_Engine() { return engine; }
 
         Byte get_x();
         void set_x(Byte x);
@@ -54,7 +55,7 @@ class Cpu {
         const std::unique_ptr<Bus> bus;
         const std::unique_ptr<Clock> clock;
         const std::shared_ptr<Memory> memory;
-        std::unique_ptr<ExecutionEngine> engine;
+        const std::shared_ptr<ExecutionEngine> engine;
 
         Byte fetch_next_byte();
         Word fetch_next_word();

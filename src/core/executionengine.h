@@ -27,13 +27,15 @@ class ExecutionEngine {
         ExecutionEngine(std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode) : currentstep(0), stepcount(0), currentinstruction(0), microcode(microcode) {}
 
         void step(Cpu* cpu);
+        void compile_microcode(Cpu* cpu);
+
+        size_t currentstep = 0;
+        size_t stepcount = 0;
+        Byte currentinstruction = 0;
 
         static ExecutionEngine* create_execution_engine(const std::string& filename);
         static std::unique_ptr<ExecutionEngine> create_execution_engine_ptr(const std::string& filename);
     private:
-        size_t currentstep = 0;
-        size_t stepcount = 0;
-        Byte currentinstruction;
         std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode;
 };
 

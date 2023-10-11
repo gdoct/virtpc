@@ -16,20 +16,21 @@ TestRunResult TestBase::run_all() {
 }
 
 bool TestBase::run_test(std::string name) {
-    //try {
+    try {
+        std::cout << " * " << this->name << "::" << name << "...";
         if (testfunctions.find(name) == testfunctions.end()) {
-            Log::warn("test function " + name + " not found.");
+            std::cout << " ERROR: test function " << name << " not found." << std::endl;
             return false;
         }
         auto result = testfunctions[name]();
         if (result) {
-            std::cout << " * \033[32m[PASS] \033[0m" << this->name << "::" << name << std::endl;
+            std::cout << " .. \033[32m[PASS] \033[0m" << std::endl;
         } else {
-            std::cout << " * \033[0;31m[FAIL] \033[0m" << this->name << "::" << name << std::endl;
+            std::cout << " * \033[0;31m[FAIL] \033[0m" << std::endl;
         }
         return result;
-    //} catch(int exception) { 
-    //    cout << " * \033[1;31m[CRASH] \033[0m" << this->name << "::" << name << "" << endl;
-    //}
-    //return false;
+    } catch(int exception) { 
+        std::cout << " * \033[1;31m[CRASH] \033[0m" << std::endl;
+    }
+    return false;
 }

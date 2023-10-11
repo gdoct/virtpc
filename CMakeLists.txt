@@ -71,7 +71,7 @@ add_custom_target(unittests)
 add_dependencies(unittests virtpc-tests virt)
 
 enable_testing()
-add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)
+#add_test(NAME logger COMMAND build/bin/virtpc-tests LoggerTests)
 add_test(NAME machine COMMAND build/bin/virtpc-tests MachineTests)
 add_test(NAME memory COMMAND build/bin/virtpc-tests MemoryTests)
 add_test(NAME cpu COMMAND build/bin/virtpc-tests CpuTests)

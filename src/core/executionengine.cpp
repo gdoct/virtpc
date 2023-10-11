@@ -9,10 +9,6 @@ void ExecutionEngine::step(Cpu* cpu) {
     if (cpu == nullptr) {
         throw E_NULLPTR;
     }
-    this->currentstep++;
-    if (this->currentstep >= stepcount + 2) {
-        this->currentstep = 0;
-    }
 
     switch (this->currentstep) {
         case 0: {
@@ -28,7 +24,7 @@ void ExecutionEngine::step(Cpu* cpu) {
         {
             // decode
             auto& steps = this->microcode[this->currentinstruction];
-            this->stepcount = steps.size();
+            this->stepcount = steps.size() + 2;
             break;
         }
         default:
@@ -39,6 +35,8 @@ void ExecutionEngine::step(Cpu* cpu) {
             if (mc.size() <= curstep) {
                 // error
                 Log::error("microcode error");
+                this->currentstep = 0;
+                this->stepcount = 2;
                 return;
             }
 
@@ -46,6 +44,21 @@ void ExecutionEngine::step(Cpu* cpu) {
            // auto operation = StepExpression::compile(mc[curstep].operation, cpu);
            // operation->execute();
             break;
+        }
+    }
+    
+    this->currentstep++;
+    if (this->currentstep >= stepcount) {
+        this->currentstep = 0;
+        this->stepcount = 2;
+    }
+}
+
+void ExecutionEngine::compile_microcode(Cpu* cpu) {
+    for(auto &instructions : microcode) {
+        auto &steps = instructions.second;
+        for (auto& step : steps) {
+            step.second.compile(cpu);
         }
     }
 }

@@ -4,4 +4,5 @@
 #include "core/clock.h"
 #include "core/executionengine.h"
 #include "core/machine.h"
+#include "core/instructions.h"
 #include "microcode/microcode.h"

@@ -15,6 +15,7 @@ std::string format_result(TestRunResult& result) {
 int TestRunner::run_all_tests(std::vector<TestBase*> &tests)  {
   std::vector<TestRunResult> results;
   for(auto test: tests) {
+      if (test == nullptr) continue;
       Log::trace("Running tests: " + test->name);
       auto result = test->run_all();
       results.push_back(result);

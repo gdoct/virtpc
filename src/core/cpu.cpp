@@ -6,7 +6,7 @@
 Cpu::Cpu() : bus(new Bus()), 
              clock(new Clock()), 
              memory(new Memory()),
-             engine(ExecutionEngine::create_execution_engine_ptr(Paths::get_path(MICROCODE_FILENAME))){
+             engine(ExecutionEngine::create_execution_engine(Paths::get_path(MICROCODE_FILENAME))){
     memory->clear();
     clock->registerCallback( [this] { this->clocktick(); } );
 }

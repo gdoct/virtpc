@@ -50,6 +50,7 @@ bool clock_startstop_multiple() {
         clock->start(5);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         clock->stop();
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     ASSERT(hitcount >=6, "hitcount should be at least 6 but was " + std::to_string(hitcount));
     return true;

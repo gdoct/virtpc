@@ -12,8 +12,12 @@ public:
             return std::make_unique<MemoryTests>();
         }else if (name == "MachineTests") {
             return std::make_unique<MachineTests>();
-        }else if (name == "LoggerTests") {
+        }
+        else if (name == "LoggerTests") {
             return std::make_unique<LoggerTests>();
+        }
+        else if (name == "InstructionTests") {
+            return std::make_unique<InstructionTests>();
         }else if (name == "CpuTests") {
             return std::make_unique<CpuTests>();
         }else if (name == "ClockTests") {
