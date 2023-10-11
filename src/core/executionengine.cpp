@@ -40,7 +40,10 @@ void ExecutionEngine::step(Cpu* cpu) {
                 return;
             }
 
-            // todo: precompile all operations for the cpu to get a modest speed increase instead of jitting it
+            auto operations = mc[curstep].expressionstrings;
+            for(auto op : operations) {
+                Log::info("   microstep for step " + std::to_string(this->currentstep) + " : " + op);
+            }
            // auto operation = StepExpression::compile(mc[curstep].operation, cpu);
            // operation->execute();
             break;
