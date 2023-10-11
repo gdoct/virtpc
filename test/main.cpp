@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
         Paths::set_rootpath(directory_path);
     }
 #endif
-    std::string testname = "InstructionTests"; // get_first_arg(argc, argv);
+    std::string testname = get_first_arg(argc, argv);
     if (testname == "") {
         Log::info("running all unit tests");
         return run_all_tests();
