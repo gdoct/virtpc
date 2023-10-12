@@ -41,17 +41,21 @@ enum class OperatorType {
 
 class StepExpression {
 public:
-    StepExpression(OperatorType operandType, GenericGetter &var1get, GenericSetter &var1set, GenericGetter &var2get) :
-        operandType(operandType), var1get(var1get), var1set(var1set), var2get(var2get) {}
-
-    void execute(Cpu* cpu);
+    // create a step from a string
     static std::shared_ptr<StepExpression> compile(std::string& expression);
 
+    // copy constructor
+    StepExpression(OperatorType operatorType, GenericGetter &lhs_get, GenericSetter &lhs_set, GenericGetter &rhs_get) :
+        operatorType(operatorType), lhs_getter(lhs_get), lhs_setter(lhs_set), rhs_getter(rhs_get) {}
+
+    // execute the step on the cpu
+    void execute(Cpu* cpu);
+
 private:
-    OperatorType operandType;
-    GenericGetter var1get;
-    GenericSetter var1set;
-    GenericGetter var2get;
+    OperatorType operatorType;
+    GenericGetter lhs_getter;
+    GenericSetter lhs_setter;
+    GenericGetter rhs_getter;
     bool is_true();
     bool is_condition();
 };

@@ -1,6 +1,5 @@
 #ifndef MACHINE_H
 #define MACHINE_H
-#include "bus.h"
 #include "cpu.h"
 #include "clock.h"
 #include "mem.h"

@@ -64,52 +64,38 @@ struct PreOperation {
 
 GenericGetter get_getter(const std::string& var) {
     if (string_compare_ignorecase("mem_word", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_Memory()->read_word(cpu->get_mc()); return gi; };
+        // read word from memory at given word address 
+        return [var](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_memory()->read_word(cpu->get_register_word(var)); return gi; };
+    } 
+    else if (string_compare_ignorecase("mc", var) || string_compare_ignorecase("pc", var)) {
+        // read word from register
+        return [var](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_register_word(var); return gi; };
     }
-    if (string_compare_ignorecase("pc", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_pc(); return gi; };
+    else if (string_compare_ignorecase("mem", var)) {
+        // read byte from memory at location mc
+        return [var](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_memory()->read_byte(cpu->get_register_word(var)); return gi; };
+    } else {
+        // read byte register
+        return [var](Cpu* cpu) { GenericInt gi{}; gi.u8 = cpu->get_register(var); return gi; };
     }
-    if (string_compare_ignorecase("mc", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u16 = cpu->get_mc(); return gi; };
-    }
-    if (string_compare_ignorecase("mem", var)) {
-        return [](Cpu* cpu) { GenericInt gi{}; gi.u8 = cpu->get_Memory()->read_byte(cpu->get_mc()); return gi; };
-    }
-    if (string_compare_ignorecase("x", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u8 = cpu->get_x(); return gi; };
-    }
-    if (string_compare_ignorecase("y", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u8 = cpu->get_y(); return gi; };
-    }
-    if (string_compare_ignorecase("a", var)) {
-        return [](Cpu* cpu) {  GenericInt gi{}; gi.u8 = cpu->get_acc(); return gi;  };
-    }
-    return [](Cpu* cpu) { GenericInt gi{}; return gi; };
 }
 
 GenericSetter get_setter(const std::string& var) {
     if (string_compare_ignorecase("mem_word", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->get_Memory()->write(cpu->get_mc(), value.u16); };
+        // write word to memory at given word address 
+        return [var](Cpu* cpu, GenericInt value) {  cpu->get_memory()->write(cpu->get_register_word(var), value.u16); };
+    } 
+    else if (string_compare_ignorecase("mc", var) || string_compare_ignorecase("pc", var)) {
+        // write word to register
+        return [var](Cpu* cpu, GenericInt value) {  cpu->set_register_word(var, value.u16);};
     }
-    if (string_compare_ignorecase("mem", var)) {
-        return [](Cpu* cpu, GenericInt value) { cpu->get_Memory()->write(cpu->get_mc(), value.u8);};
+    else if (string_compare_ignorecase("mem", var)) {
+        // write byte to memory at wide address mc
+        return [var](Cpu* cpu, GenericInt value) { cpu->get_memory()->write(cpu->get_register_word(var), value.u8);};
+    } else {
+        // write byte register
+        return [var](Cpu* cpu, GenericInt value) {  cpu->set_register(var, value.u8); };
     }
-    if (string_compare_ignorecase("pc", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->set_pc(value.u16);};
-    }
-    if (string_compare_ignorecase("mc", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->set_mc(value.u16);};
-    }
-    if (string_compare_ignorecase("x", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->set_x(value.u8);};
-    }
-    if (string_compare_ignorecase("y", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->set_y(value.u8);};
-    }
-    if (string_compare_ignorecase("a", var)) {
-        return [](Cpu* cpu, GenericInt value) {  cpu->set_acc(value.u8); };
-    }
-    return [](Cpu* cpu, GenericInt gi){};
 }
 
 bool parseOperation(const std::string& str, PreOperation &op) {
@@ -137,9 +123,9 @@ std::shared_ptr<StepExpression> StepExpression::compile(std::string& expression)
 
 void StepExpression::execute(Cpu* cpu) {
     Log::info("executing microcode substep");
-    switch (operandType) {
+    switch (operatorType) {
         case OperatorType::AssignTo: {
-            var1set(cpu, var2get(cpu));
+            lhs_setter(cpu, rhs_getter(cpu));
             break;
         }
         default: break;
@@ -147,7 +133,7 @@ void StepExpression::execute(Cpu* cpu) {
 }
 
 bool StepExpression::is_condition() {
-    return is_conditional(this->operandType);
+    return is_conditional(this->operatorType);
 }
 
 bool StepExpression::is_true() {

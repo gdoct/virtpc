@@ -1,5 +1,5 @@
-#ifndef EXECUTIONEGINE_H
-#define EXECUTIONEGINE_H
+#ifndef EXECUTIONENGINE_H
+#define EXECUTIONENGINE_H
 #include <string>
 #include <unordered_map>
 #include "cpu.h"
@@ -27,6 +27,7 @@ class ExecutionEngine {
 
         void step(Cpu* cpu);
         void compile_microcode();
+        void raise_interrupt(Word isr_address);
 
         size_t currentstep = 0;
         size_t stepcount = 2;
@@ -36,6 +37,9 @@ class ExecutionEngine {
         static std::unique_ptr<ExecutionEngine> create_execution_engine_ptr(const std::string& filename);
     private:
         std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode;
+        bool is_interrupt_raised = false;
+        bool is_servicing_interrupt = false;
+        Word interrupt_address = 0;
 };
 
 #endif

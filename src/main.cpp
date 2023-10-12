@@ -16,7 +16,6 @@
 static void run_vm() {
      Log::info("Creating virtual machine..");
      //auto m = new Machine();
-    //   auto b = new Bus();
     //   auto c = new Clock();
       auto cpu = new Cpu() ; //b, c);
 

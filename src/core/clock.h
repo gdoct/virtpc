@@ -1,6 +1,5 @@
 #ifndef CLOCK_H
 #define CLOCK_H
-#include "bus.h"
 
 #include <iostream>
 #include <vector>

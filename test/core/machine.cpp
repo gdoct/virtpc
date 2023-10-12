@@ -11,10 +11,10 @@ bool machine_shouldhavecpu() {
 bool machine_stepmultipletimes_shouldincreasepc() {
     auto m = new Machine();
     ASSERT_NOTNULL(m->get_cpu(), "cpu is null");
-    ASSERT(m->get_cpu()->get_pc() == 0, "pc should be 0");
+    ASSERT(m->get_cpu()->get_register_word("pc") == 0, "pc should be 0");
     for(auto i = 0; i < 20;i++)
         m->step();
-    ASSERT(m->get_cpu()->get_pc() > 0, "pc should have increased")
+    ASSERT(m->get_cpu()->get_register_word("pc") > 0, "pc should have increased")
     return true;
 }
 
