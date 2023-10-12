@@ -23,14 +23,13 @@ while (true)
 class ExecutionEngine {
     public:
         ExecutionEngine() = default;
-        //ExecutionEngine(std::unordered_map<Byte, std::unordered_map<int, Operation>> microcode) : microcode(microcode) {}
-        ExecutionEngine(std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode) : currentstep(0), stepcount(0), currentinstruction(0), microcode(microcode) {}
+        ExecutionEngine(std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode) : currentstep(0), stepcount(2), currentinstruction(0), microcode(microcode) {}
 
         void step(Cpu* cpu);
-        void compile_microcode(Cpu* cpu);
+        void compile_microcode();
 
         size_t currentstep = 0;
-        size_t stepcount = 0;
+        size_t stepcount = 2;
         Byte currentinstruction = 0;
 
         static ExecutionEngine* create_execution_engine(const std::string& filename);

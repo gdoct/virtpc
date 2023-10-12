@@ -8,9 +8,13 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\api",
+    "\\src\\core",
+    "\\src\\microcode",
+    "\\src\\util",
     "\\test",
     "\\test\\core"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\src\\microcode\\stepexpression.cpp",
   "PreviewInSolutionExplorer": false
 }

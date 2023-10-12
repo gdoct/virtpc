@@ -6,7 +6,6 @@
 #include "core/mem.h"
 #include "util/logger.h"
 #include "util/options.h"
-#include "util/exception.h"
 #include <filesystem>
 #ifdef _MSC_VER
 #include "windows.h"
@@ -25,14 +24,10 @@ static void run_vm() {
 
       for (auto i=0; i<18; i++) {
           Log::trace("executing step");
-          if (cpu == nullptr) {
-            throw E_NULLPTR;
-          }
-
 // 1. load rom "roms/c64/64c.251913-01.bin" at address $e000
 // 2. load address stored at $fffd $fffc into program counter
 // 3. go!
-    //      cpu->step();
+          cpu->step();
           std::this_thread::sleep_for(std::chrono::milliseconds(50));
       }
 }

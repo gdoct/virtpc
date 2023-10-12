@@ -64,6 +64,6 @@ void Cpu::step() {
     engine->step(this);
  }
 
- void Cpu::process_instruction(Opcodes opcodes) const {
-    std::cout << "code: " << (Byte) opcodes << std::endl;
- }
+ //void Cpu::process_instruction(Opcodes opcodes) const {
+ //   std::cout << "code: " << (Byte) opcodes << std::endl;
+ //}

@@ -1,13 +1,11 @@
 #include <vector>
 #include "executionengine.h"
-#include "../microcode/instruction.h"
 #include "../microcode/instructionstep.h"
-#include "../util/exception.h"
 #include "../api/numbers.h"
 
 void ExecutionEngine::step(Cpu* cpu) {
     if (cpu == nullptr) {
-        throw E_NULLPTR;
+        throw std::invalid_argument("cpu");
     }
 
     switch (this->currentstep) {
@@ -40,9 +38,9 @@ void ExecutionEngine::step(Cpu* cpu) {
                 return;
             }
 
-            auto operations = mc[curstep].expressionstrings;
-            for(auto op : operations) {
-                Log::info("   microstep for step " + std::to_string(this->currentstep) + " : " + op);
+            auto& operationnames = mc[curstep].expressionstrings;
+            for(auto& opname : operationnames) {
+                Log::info("   microstep for step " + std::to_string(this->currentstep) + " : " + opname);
             }
            // auto operation = StepExpression::compile(mc[curstep].operation, cpu);
            // operation->execute();
@@ -57,11 +55,11 @@ void ExecutionEngine::step(Cpu* cpu) {
     }
 }
 
-void ExecutionEngine::compile_microcode(Cpu* cpu) {
+void ExecutionEngine::compile_microcode() {
     for(auto &instructions : microcode) {
         auto &steps = instructions.second;
         for (auto& step : steps) {
-            step.second.compile(cpu);
+            step.second.compile();
         }
     }
 }

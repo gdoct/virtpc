@@ -1,7 +1,6 @@
 #include "../tests.h"
 #include "../../src/api/constants.h"
 #include "../../src/core/mem.h"
-#include "../../src/util/exception.h"
 
 static bool 
 memory_shouldstore(void) {

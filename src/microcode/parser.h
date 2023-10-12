@@ -9,7 +9,6 @@
 #include <vector>
 #include "../core/opcodes.h"
 #include "../util/logger.h"
-#include "instruction.h"
 #include "instructionstep.h"
 #include "../api/constants.h"
 

@@ -7,7 +7,6 @@
 #include "mem.h"
 #include "../api/constants.h"
 #include "../api/numbers.h"
-#include "../util/exception.h"
 
 MemoryOptions::MemoryOptions(int size) : size(size), throwOutOfBounds(true) {}
 
@@ -99,7 +98,7 @@ void Memory::load(const std::string& filename, Word address) {
     auto data = readFromFile(filename);
     int datasize = static_cast<int>(data.size());
     if ((addr + datasize) > size) {
-        throw E_OVERFLOW;
+        throw std::overflow_error("data file larger than available memory");
     }
     if (datasize > 0) {
         for (int i = 0; i < datasize; i++) {

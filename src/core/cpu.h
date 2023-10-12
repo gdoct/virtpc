@@ -7,9 +7,10 @@
 #include "clock.h"
 #include "cpustate.h"
 #include "mem.h"
-#include "opcodes.h"
+#include "register.h"
 #include "../api/numbers.h"
 #include "../util/logger.h"
+#include "../util/functions.h"
 
 class ExecutionEngine; // forward declaration
 
@@ -57,9 +58,10 @@ class Cpu {
         const std::shared_ptr<Memory> memory;
         const std::shared_ptr<ExecutionEngine> engine;
 
+
         Byte fetch_next_byte();
         Word fetch_next_word();
-        void process_instruction(Opcodes instruction) const;
+        //void process_instruction(Opcodes instruction) const;
 };
 
 #endif
