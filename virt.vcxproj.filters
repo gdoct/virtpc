@@ -4,9 +4,6 @@
     <ClCompile Include="D:\Development\c++\virtpc\src\api\constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Development\c++\virtpc\src\core\bus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="D:\Development\c++\virtpc\src\core\clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -22,10 +19,16 @@
     <ClCompile Include="D:\Development\c++\virtpc\src\core\mem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Development\c++\virtpc\src\microcode\operand.cpp">
+    <ClCompile Include="D:\Development\c++\virtpc\src\microcode\instructionstep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\Development\c++\virtpc\src\microcode\parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Development\c++\virtpc\src\microcode\stepexpression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Development\c++\virtpc\src\util\functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\Development\c++\virtpc\src\util\logger.cpp">
@@ -42,16 +45,10 @@
     <ClInclude Include="D:\Development\c++\virtpc\src\api\numbers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Development\c++\virtpc\src\core\bus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\src\core\clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\src\core\cpu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\Development\c++\virtpc\src\core\cpustate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\src\core\executionengine.h">
@@ -66,13 +63,16 @@
     <ClInclude Include="D:\Development\c++\virtpc\src\core\opcodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Development\c++\virtpc\src\microcode\operand.h">
+    <ClInclude Include="D:\Development\c++\virtpc\src\microcode\instructionstep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\src\microcode\parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Development\c++\virtpc\src\util\exception.h">
+    <ClInclude Include="D:\Development\c++\virtpc\src\microcode\stepexpression.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Development\c++\virtpc\src\util\functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\src\util\logger.h">

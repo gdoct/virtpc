@@ -28,16 +28,18 @@ static Word convert_hex_to_int16(std::string& step) {
     return value;
 }
 
+std::string strip_comments(std::string& line) {
+    std::istringstream iss(line);
+    std::string temp;
+    std::getline(iss, temp, ';');
+    trim(temp);
+    return temp;
+}
+
 bool parse_line(std::istringstream& iss, InstructionStep& instructionstep) {
 
     std::string temp;
-    // strip comments
-    std::getline(iss, temp, ';');
-    trim(temp);
-    if (temp.empty()) {
-        return false;
-    }
-
+   
     // get first arg (instruction)
     std::getline(iss, temp, '|');
     if (temp.empty())
@@ -75,6 +77,7 @@ std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> Parser::read_
         std::getline(file, line);
 
         while (std::getline(file, line)) {
+            line = strip_comments(line);
             if (line.empty()) {
                 continue;
             }

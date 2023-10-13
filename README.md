@@ -1,5 +1,5 @@
 # virtpc
-This is a highly configurable virtual machine in c++ in progress
+This is a configurable virtual machine in c++ in progress
 
 The project emulates an 8 bit system with 16 bit addressing.
 currently it has 8 registers: acc, x, y, status, mem_low, mem_high, pc_low and pc_high

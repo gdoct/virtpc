@@ -2,6 +2,7 @@
 #define NUMBERS_H
 
 #include <cstdint>
+#include <numeric>
 
 using Byte = uint8_t;
 using Word = uint16_t;
@@ -14,7 +15,8 @@ typedef union {
 struct GenericInt {
     GenericInt() : is_word(false) {}
     GenericInt(bool word) : is_word(word) {}
-    GenericInt(GenericInt& other) : value(other.value), is_word(other.is_word) {}
+    GenericInt(const GenericInt& other) : value(other.value), is_word(other.is_word) {}
+
     GenericInt& operator=(const GenericInt& other) {
         if (this != &other) {
             // This is necessary because we can't assign to 'value' directly
@@ -23,15 +25,16 @@ struct GenericInt {
             // No need to copy 'is_word' because it's const
         }
         return *this;
-    }
+    }\
 
-    GenericInt operator+(const GenericInt& other) const {
+        GenericInt operator+(const GenericInt& other) const {
         if (this->is_word && other.is_word) {
             Word sum = static_cast<Word>((this->value.u16 + other.value.u16) & 0xFFFF);
-            auto i = GenericInt( true);
+            auto i = GenericInt(true);
             i.value.u16 = sum;
             return i;
-        } else {
+        }
+        else {
             Byte sum = static_cast<Byte>((this->value.u8 + other.value.u8) & 0xFF);
             auto i = GenericInt(false);
             i.value.u8 = sum;
@@ -45,7 +48,8 @@ struct GenericInt {
             auto i = GenericInt(true);
             i.value.u16 = diff;
             return i;
-        } else {
+        }
+        else {
             Byte diff = static_cast<Byte>((this->value.u8 - other.value.u8) & 0xFF);
             auto i = GenericInt(false);
             i.value.u8 = diff;
@@ -61,7 +65,8 @@ struct GenericInt {
             }
             result = GenericInt(true);
             result.value.u16 = this->value.u16 * other.value.u16;
-        } else {
+        }
+        else {
             if (other.value.u8 > 0 && this->value.u8 > std::numeric_limits<Byte>::max() / other.value.u8) {
                 // Handle overflow...
             }
@@ -79,7 +84,8 @@ struct GenericInt {
             }
             result = GenericInt(true);
             result.value.u16 = this->value.u16 / other.value.u16;
-        } else {
+        }
+        else {
             if (other.value.u8 == 0) {
                 // Handle divide by zero...
             }
@@ -89,9 +95,8 @@ struct GenericInt {
         return result;
     }
 
-
     GenericIntUnion value;
-    const bool is_word;
+    bool is_word;
 };
 
 #endif

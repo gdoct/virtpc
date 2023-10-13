@@ -10,6 +10,9 @@
     <ClCompile Include="D:\Development\c++\virtpc\test\core\executionengine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\Development\c++\virtpc\test\core\instructions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\Development\c++\virtpc\test\core\machine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\test\core\executionengine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Development\c++\virtpc\test\core\instructions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\Development\c++\virtpc\test\core\machine.h">

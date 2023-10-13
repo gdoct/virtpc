@@ -6,7 +6,12 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\out",
+    "\\out\\build",
+    "\\src",
+    "\\src\\api",
+    "\\src\\microcode"
   ],
   "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false

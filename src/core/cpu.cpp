@@ -28,7 +28,7 @@ void Cpu::clocktick() {
 }
 
 Byte Cpu::get_register(const std::string& name) { 
-    std::string name_lower = toLowerCase(name);
+    std::string name_lower = to_lower(name);
     if (registers.count(name_lower)== 0) {
        throw std::invalid_argument(name);
     }
@@ -36,7 +36,7 @@ Byte Cpu::get_register(const std::string& name) {
 }
 
 Word Cpu::get_register_word(const std::string& name) { 
-    std::string name_lower = toLowerCase(name);
+    std::string name_lower = to_lower(name);
     if (registers.count(name_lower + "_low")== 0 || registers.count(name_lower + "_high")== 0) {
         if (registers.count(name_lower) == 0)
             throw std::invalid_argument(name);
@@ -49,7 +49,7 @@ Word Cpu::get_register_word(const std::string& name) {
 }
 
 void Cpu::set_register(const std::string& name, Byte newx) {
-    std::string name_lower = toLowerCase(name);
+    std::string name_lower = to_lower(name);
     if (registers.count(name_lower)== 0) {
         throw std::invalid_argument(name);
     }
@@ -57,7 +57,7 @@ void Cpu::set_register(const std::string& name, Byte newx) {
  }
 
 void Cpu::set_register_word(const std::string& name, Word value) {
-    std::string name_lower = toLowerCase(name);
+    std::string name_lower = to_lower(name);
     if (registers.count(name_lower + "_low")== 0 || registers.count(name_lower + "_high")== 0) {
         if (registers.count(name_lower) == 0)
             throw std::invalid_argument(name);
