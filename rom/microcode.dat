@@ -1,5 +1,6 @@
 HEX|STEP|OPERATION
-AD|1|MC := PC
+; LDA (AD) : immediate addressing
+AD|1|MC := PC           ; 
 AD|2|MC := MEM_WORD
 AD|3|A := MEM_BYTE
 

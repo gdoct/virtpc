@@ -5,7 +5,6 @@
 #include <map>
 #include <list>
 #include "clock.h"
-#include "cpustate.h"
 #include "mem.h"
 #include "../api/numbers.h"
 #include "../util/logger.h"
@@ -53,10 +52,6 @@ class Cpu {
             {"pc"},
             {"mc"}
         };
-
-        // e_deprecated
-        Byte fetch_next_byte();
-        Word fetch_next_word();
 };
 
 #endif

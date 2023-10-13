@@ -56,7 +56,6 @@ void Cpu::set_register(const std::string& name, Byte newx) {
     registers[name_lower] = newx; 
  }
 
-
 void Cpu::set_register_word(const std::string& name, Word value) {
     std::string name_lower = toLowerCase(name);
     if (registers.count(name_lower + "_low")== 0 || registers.count(name_lower + "_high")== 0) {
@@ -70,20 +69,6 @@ void Cpu::set_register_word(const std::string& name, Word value) {
         registers[name_lower + "_high"] = high_byte;
     }
  }
-
-Byte Cpu::fetch_next_byte() {
-    Byte& pc = registers["pc"];
-    auto data = memory->read_byte(pc);
-    pc += 1;
-    return data;
-}
-
-Word Cpu::fetch_next_word() {
-    Byte& pc = registers["pc"];
-    auto word = memory->read_word(pc);
-    pc += 2;
-    return word;
-}
 
 void Cpu::step() { 
     engine->step(this);

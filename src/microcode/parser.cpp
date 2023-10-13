@@ -3,6 +3,7 @@
 #include <tuple>
 
 static Byte convert_to_int8(std::string& step) {
+    trim(step);
     if (step.empty()) {
         return 0;
     }
@@ -16,6 +17,7 @@ static Byte convert_to_int8(std::string& step) {
 }
 
 static Word convert_hex_to_int16(std::string& step) {
+    trim(step);
     if (step.empty()) {
         return 0;
     }
@@ -29,7 +31,14 @@ static Word convert_hex_to_int16(std::string& step) {
 bool parse_line(std::istringstream& iss, InstructionStep& instructionstep) {
 
     std::string temp;
+    // strip comments
+    std::getline(iss, temp, ';');
+    trim(temp);
+    if (temp.empty()) {
+        return false;
+    }
 
+    // get first arg (instruction)
     std::getline(iss, temp, '|');
     if (temp.empty())
     {
@@ -37,6 +46,7 @@ bool parse_line(std::istringstream& iss, InstructionStep& instructionstep) {
     }
     instructionstep.instruction = convert_hex_to_int16(temp);
 
+    // get second arg (step)
     std::getline(iss, temp, '|');
     if (temp.empty())
     {
@@ -46,6 +56,7 @@ bool parse_line(std::istringstream& iss, InstructionStep& instructionstep) {
 
     // Parse instructions
     while (std::getline(iss, temp, '|')) {
+        trim(temp);
         if (!temp.empty())
         {
             instructionstep.expressionstrings.push_back(temp);

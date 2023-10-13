@@ -7,17 +7,12 @@
 #include <string>
 #include <iostream>
 #include <functional>
-
+#include "../api/numbers.h"
 #include "../core/cpu.h"
 #include "../util/logger.h"
 
-typedef union {
-    Byte u8;
-    Word u16;
-} GenericInt;
-
-using GenericGetter = std::function<GenericInt(Cpu*)>;
-using GenericSetter = std::function<void(Cpu*, GenericInt)>;
+using GenericGetter = std::function<GenericInt(Cpu*, const std::string& name)>;
+using GenericSetter = std::function<void(Cpu*, const std::string& name, GenericInt&)>;
 
 enum class OperatorType {
     None,
@@ -45,13 +40,15 @@ public:
     static std::shared_ptr<StepExpression> compile(std::string& expression);
 
     // copy constructor
-    StepExpression(OperatorType operatorType, GenericGetter &lhs_get, GenericSetter &lhs_set, GenericGetter &rhs_get) :
-        operatorType(operatorType), lhs_getter(lhs_get), lhs_setter(lhs_set), rhs_getter(rhs_get) {}
+    StepExpression(OperatorType operatorType, std::string& lhs, std::string& rhs, GenericGetter &lhs_get, GenericSetter &lhs_set, GenericGetter &rhs_get) :
+        lhs(lhs), rhs(rhs), operatorType(operatorType), lhs_getter(lhs_get), lhs_setter(lhs_set), rhs_getter(rhs_get) {}
 
     // execute the step on the cpu
     void execute(Cpu* cpu);
 
 private:
+    std::string lhs;
+    std::string rhs;
     OperatorType operatorType;
     GenericGetter lhs_getter;
     GenericSetter lhs_setter;

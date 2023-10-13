@@ -9,7 +9,7 @@
 // cycle 2 feed instruction to microcode
 // rest is optional depending on cycles defined for the instruction in the microcode
 void handleInterrupt() {
-    
+    throw std::bad_function_call();
 }
 
 void ExecutionEngine::step(Cpu* cpu) {

@@ -6,15 +6,8 @@
     ]
   },
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\api",
-    "\\src\\core",
-    "\\src\\microcode",
-    "\\src\\util",
-    "\\test",
-    "\\test\\core"
+    ""
   ],
-  "SelectedNode": "\\src\\microcode\\stepexpression.cpp",
+  "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }
