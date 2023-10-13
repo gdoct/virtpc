@@ -29,7 +29,7 @@ bool TestBase::run_test(std::string name) {
             std::cout << " * \033[0;31m[FAIL] \033[0m" << std::endl;
         }
         return result;
-    } catch(int exception) { 
+    } catch(int) { 
         std::cout << " * \033[1;31m[CRASH] \033[0m" << std::endl;
     }
     return false;

@@ -20,13 +20,13 @@ while (true)
 
 */
 
+
 class ExecutionEngine {
     public:
         ExecutionEngine() = default;
-        ExecutionEngine(std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode) : currentstep(0), stepcount(2), currentinstruction(0), microcode(microcode) {}
+        ExecutionEngine(MicrocodeMap microcode) : currentstep(0), stepcount(2), currentinstruction(0), microcode(microcode) {}
 
         void step(Cpu* cpu);
-        void compile_microcode();
         void raise_interrupt(Word isr_address);
 
         size_t currentstep = 0;
@@ -36,7 +36,7 @@ class ExecutionEngine {
         static ExecutionEngine* create_execution_engine(const std::string& filename);
         static std::unique_ptr<ExecutionEngine> create_execution_engine_ptr(const std::string& filename);
     private:
-        std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> microcode;
+        MicrocodeMap microcode;
         bool is_interrupt_raised = false;
         bool is_servicing_interrupt = false;
         Word interrupt_address = 0;

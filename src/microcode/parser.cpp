@@ -68,8 +68,8 @@ bool parse_line(std::istringstream& iss, InstructionStep& instructionstep) {
     return (instructionstep.expressionstrings.size() > 0);
 }
 
-std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> Parser::read_microcode_table(std::string filename) {
-    std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> table;
+MicrocodeMap Parser::read_microcode_table(std::string filename) {
+    MicrocodeMap table;
     std::ifstream file(filename);
     if (file.is_open()) {
         std::string line;
@@ -85,7 +85,7 @@ std::unordered_map<Byte, std::unordered_map<int, InstructionStep>> Parser::read_
             InstructionStep instructionstep;
             auto is_valid = parse_line(iss, instructionstep);
             if (is_valid) {
-                table[instructionstep.instruction][instructionstep.stepid] = instructionstep;
+                table[static_cast<unsigned char>(instructionstep.instruction)][instructionstep.stepid] = instructionstep;
             }
             else Log::error("invalid line in microcode " + line);
         }

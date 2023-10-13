@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
 #ifdef _MSC_VER
     std::vector<char> executablePath(MAX_PATH);
-    DWORD pathLength = GetModuleFileName(NULL, &executablePath[0], executablePath.size());
+    DWORD pathLength = GetModuleFileName(NULL, &executablePath[0], static_cast<DWORD>(executablePath.size()));
     if (pathLength == 0) {
         std::cerr << "Error getting executable path" << std::endl;
         return 1;

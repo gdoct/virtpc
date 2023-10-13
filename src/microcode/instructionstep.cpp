@@ -8,6 +8,7 @@ void InstructionStep::execute(Cpu* cpu) {
 }
 
 void InstructionStep::compile() {
+    expressions.clear();
     for (auto& expression : expressionstrings) {
         auto compiled = StepExpression::compile(expression);
         expressions.push_back(compiled);

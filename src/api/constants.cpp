@@ -4,11 +4,9 @@
 #include <stdlib.h>
 #include <string>
 
-//using namespace std;
-
 static std::string rootpath = "";
 
-static std::string combine_paths(std::string path1, std::string path2) {
+inline std::string combine_paths(std::string path1, std::string path2) {
 #ifdef _MSC_VER
     return path1 + "..\\..\\..\\..\\..\\build\\bin\\" + path2;
 #else

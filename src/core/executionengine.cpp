@@ -8,9 +8,7 @@
 // cycle 1 read memory at location of pc
 // cycle 2 feed instruction to microcode
 // rest is optional depending on cycles defined for the instruction in the microcode
-void handleInterrupt() {
-    throw std::bad_function_call();
-}
+void handleInterrupt();
 
 void ExecutionEngine::step(Cpu* cpu) {
     if (cpu == nullptr) {
@@ -42,7 +40,7 @@ void ExecutionEngine::step(Cpu* cpu) {
         default:
         {
             // execute
-            size_t curstep = currentstep - 2;
+            int curstep = static_cast<int>(currentstep - 2);
             auto& mc = this->microcode[this->currentinstruction];
             if (mc.size() <= curstep) {
                 // error
@@ -70,6 +68,10 @@ void ExecutionEngine::step(Cpu* cpu) {
     }
 }
 
+void handleInterrupt() {
+    throw std::bad_function_call();
+}
+
 void ExecutionEngine::raise_interrupt(Word isr_address) {
 /**
  * An interrupt on a 6502 CPU can be broken down into the following micro steps:
@@ -90,8 +92,8 @@ void ExecutionEngine::raise_interrupt(Word isr_address) {
     }
 }
 
-void ExecutionEngine::compile_microcode() {
-    for(auto &instructions : microcode) {
+static void compile(MicrocodeMap& microcodemap) {
+    for(auto &instructions : microcodemap) {
         auto &steps = instructions.second;
         for (auto& step : steps) {
             step.second.compile();
@@ -101,10 +103,12 @@ void ExecutionEngine::compile_microcode() {
 
 ExecutionEngine* ExecutionEngine::create_execution_engine(const std::string& filename) {
     auto mc = Parser().read_microcode_table(filename);
+    compile(mc);
     return new ExecutionEngine(mc);
 }
 
 std::unique_ptr<ExecutionEngine> ExecutionEngine::create_execution_engine_ptr(const std::string& filename) {
     auto mc = Parser().read_microcode_table(filename);
+    compile(mc);
     return std::make_unique<ExecutionEngine>(mc);
 }
