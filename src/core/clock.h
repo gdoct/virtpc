@@ -17,7 +17,11 @@ public:
     
 private:
     std::vector<std::function<void()>> callbacks = std::vector<std::function<void()>>();
+    #ifdef __APPLE__
+    std::thread thread;
+    #else
     std::jthread thread;
+    #endif
     bool running = false;
     int current_timeout;
     void tick(int interval_ms) const;

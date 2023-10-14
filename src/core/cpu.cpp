@@ -119,14 +119,14 @@ Word Cpu::pop_stack_word() {
 }
 
 // -------------------------------------- status register operations --------------------------------------
-void Cpu::set_status(uint8_t state_to_add) {
+void Cpu::set_status(const Byte& state_to_add) {
     this->registers["sp"] |= state_to_add;
 }
 
-bool Cpu::has_status(uint8_t state) {
+bool Cpu::has_status(const Byte& state) {
     return (this->registers["sp"] & state) != 0;
 }
 
-void Cpu::clear_status(uint8_t state_to_remove) {
+void Cpu::clear_status(const Byte& state_to_remove) {
     this->registers["sp"] &= ~state_to_remove;
 }

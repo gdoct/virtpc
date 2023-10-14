@@ -10,7 +10,7 @@
 #include "../util/logger.h"
 #include "../util/functions.h"
 
-class ExecutionEngine; // forward declaration
+class ExecutionEngine; // forward declaration 
 
 const Byte STATUS_CARRY       = 0x01; 
 const Byte STATUS_ZERO        = 0x02; 
@@ -49,9 +49,9 @@ class Cpu {
         Word pop_stack_word();
 
         // status register operations
-        void set_status(Byte state_to_add);
-        bool has_status(Byte state);
-        void clear_status(Byte state_to_remove);
+        void set_status(const Byte& state_to_add);
+        bool has_status(const Byte& state);
+        void clear_status(const Byte& state_to_remove);
 
     private: 
         void clocktick();
