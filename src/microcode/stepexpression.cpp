@@ -136,14 +136,69 @@ void StepExpression::execute(Cpu* cpu) {
             lhs_setter(cpu, result);
             break;
         }
+        case OperatorType::SubtractTo: {
+            auto result = lhs_getter(cpu) - rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
+        case OperatorType::MultiplyTo: {
+            auto result = lhs_getter(cpu) * rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
+        case OperatorType::DivideTo: {
+            auto result = lhs_getter(cpu) / rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
+        case OperatorType::AndTo: {
+            auto result = lhs_getter(cpu) & rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
+        case OperatorType::OrTo: {
+            auto result = lhs_getter(cpu) | rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
+        case OperatorType::XorTo: {
+            auto result = lhs_getter(cpu) ^ rhs_getter(cpu);
+            lhs_setter(cpu, result);
+            break;
+        }
         default: break;
     }
 }
+
 
 bool StepExpression::is_condition() {
     return is_conditional(this->operatorType);
 }
 
-bool StepExpression::is_true() {
-    return true;
+bool StepExpression::evaluate(Cpu* cpu) {
+    switch (operatorType) {
+        case OperatorType::Eq:{
+            return lhs_getter(cpu) == rhs_getter(cpu);
+        }
+        case OperatorType::Neq: {
+            return lhs_getter(cpu) != rhs_getter(cpu);
+        }
+        case OperatorType::AndEq: {
+            return (lhs_getter(cpu) & rhs_getter(cpu)) != 0;
+        }
+        case OperatorType::OrEq: {
+            return (lhs_getter(cpu) | rhs_getter(cpu)) != 0;
+        }
+        case OperatorType::XorEq: {
+            return (lhs_getter(cpu) ^ rhs_getter(cpu)) != 0;
+        }
+        case OperatorType::Gt: {
+            return lhs_getter(cpu) > rhs_getter(cpu);
+        }
+        case OperatorType::Lt: {
+            return lhs_getter(cpu) < rhs_getter(cpu);
+        }
+        default:
+            return false;
+    }
 }

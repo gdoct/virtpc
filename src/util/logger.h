@@ -1,5 +1,5 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef UTIL_LOGGER_H
+#define UTIL_LOGGER_H
 
 #include <iostream>
 #include <cstring>

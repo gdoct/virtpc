@@ -1,7 +1,11 @@
 #include "cpu.h"
 #include "executionengine.h"
 #include "../api/constants.h"
-//using namespace std;
+
+// -------------------------------------- constructors --------------------------------------
+// constructor definition in this cpp file is required for the forward declaration
+// to make the circular reference work with the execution engine
+Cpu::~Cpu() = default;
 
 Cpu::Cpu() : clock(new Clock()), 
              memory(new Memory()),
@@ -20,13 +24,17 @@ Cpu::Cpu(Cpu& other) : clock(new Clock()),
     clock->registerCallback( [this] { this->clocktick(); } );
 }
 
-// needed for the forward declaration
-Cpu::~Cpu() = default;
+// -------------------------------------- general functions --------------------------------------
+
+void Cpu::step() { 
+    engine->step(this);
+}
 
 void Cpu::clocktick() {
     step();
 }
 
+// -------------------------------------- register operations --------------------------------------
 Byte Cpu::get_register(const std::string& name) { 
     std::string name_lower = to_lower(name);
     if (registers.count(name_lower)== 0) {
@@ -70,6 +78,55 @@ void Cpu::set_register_word(const std::string& name, Word value) {
     }
  }
 
-void Cpu::step() { 
-    engine->step(this);
+// -------------------------------------- stack operations --------------------------------------
+void increase_stack_pointer(std::map<std::string, Byte>& registers) {
+    auto stackpointer = registers["sp"];
+    if (stackpointer == 0xff) stackpointer = 0x00; else stackpointer++;
+    registers["sp"] = stackpointer;
+}
+
+void decrease_stack_pointer(std::map<std::string, Byte>& registers) {
+    auto stackpointer = registers["sp"];
+    if (stackpointer == 0x00) {
+        throw std::overflow_error("stack overflow");
+    } else stackpointer--;
+    registers["sp"] = stackpointer;
+}
+
+void Cpu::push_stack(Byte value) {
+    decrease_stack_pointer(registers);
+    auto address = 0x0100 | registers["sp"];
+    memory->write(address, value);
+}
+
+void Cpu::push_stack(Word value) {
+    Byte high_byte = value >> 8;
+    Byte low_byte = value & 0xFF;
+    push_stack(high_byte);
+    push_stack(low_byte);
+}
+
+Byte Cpu::pop_stack_byte() {
+    increase_stack_pointer(registers);
+    auto address = 0x0100 | registers["sp"];
+    return memory->read_byte(address);
+}
+
+Word Cpu::pop_stack_word() {
+    Byte low_byte = pop_stack_byte();
+    Byte high_byte = pop_stack_byte();
+    return (high_byte << 8) | low_byte;
+}
+
+// -------------------------------------- status register operations --------------------------------------
+void Cpu::set_status(uint8_t state_to_add) {
+    this->registers["sp"] |= state_to_add;
+}
+
+bool Cpu::has_status(uint8_t state) {
+    return (this->registers["sp"] & state) != 0;
+}
+
+void Cpu::clear_status(uint8_t state_to_remove) {
+    this->registers["sp"] &= ~state_to_remove;
 }

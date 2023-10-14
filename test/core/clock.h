@@ -1,5 +1,5 @@
-#ifndef CLOCKTEST_H
-#define CLOCKTEST_H
+#ifndef TEST_CORE_CLOCKTEST_H
+#define TEST_CORE_CLOCKTEST_H
 
 #include "../framework/testbase.h"
 

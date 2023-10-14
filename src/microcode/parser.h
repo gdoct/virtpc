@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef MICROCODE_PARSER_H
+#define MICROCODE_PARSER_H
 
 #include <iostream>
 #include <fstream>

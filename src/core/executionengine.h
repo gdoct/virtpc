@@ -1,5 +1,5 @@
-#ifndef EXECUTIONENGINE_H
-#define EXECUTIONENGINE_H
+#ifndef CORE_EXECUTIONENGINE_H
+#define CORE_EXECUTIONENGINE_H
 #include <string>
 #include <unordered_map>
 #include "cpu.h"
@@ -24,13 +24,13 @@ while (true)
 class ExecutionEngine {
     public:
         ExecutionEngine() = default;
-        ExecutionEngine(MicrocodeMap microcode) : currentstep(0), stepcount(2), currentinstruction(0), microcode(microcode) {}
+        ExecutionEngine(MicrocodeMap microcode) : currentstep(0), is_executing_instuction(false), currentinstruction(0), microcode(microcode) {}
 
         void step(Cpu* cpu);
         void raise_interrupt(Word isr_address);
 
         size_t currentstep = 0;
-        size_t stepcount = 2;
+        bool is_executing_instuction = false;
         Byte currentinstruction = 0;
 
         static ExecutionEngine* create_execution_engine(const std::string& filename);

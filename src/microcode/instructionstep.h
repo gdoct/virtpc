@@ -1,5 +1,5 @@
-#ifndef INSTRUCTIONSTEP_H
-#define INSTRUCTIONSTEP_H
+#ifndef MICROCODE_INSTRUCTIONSTEP_H
+#define MICROCODE_INSTRUCTIONSTEP_H
 
 #include <string>
 #include <unordered_map>

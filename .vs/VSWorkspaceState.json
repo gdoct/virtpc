@@ -9,8 +9,10 @@
     "",
     "\\out",
     "\\out\\build",
+    "\\rom",
     "\\src",
     "\\src\\api",
+    "\\src\\core",
     "\\src\\microcode"
   ],
   "SelectedNode": "\\CMakeLists.txt",

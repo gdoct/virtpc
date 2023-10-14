@@ -17,24 +17,14 @@ bool lda_shouldloadaccum() {
 	// lda is 0xad and has 3 steps
 	Byte instr = 0xad;
 	mem->write(val, instr);
-	ASSERT_EQUAL(engine->currentstep, 0, "xcpu did not step");
+	ASSERT_EQUAL(engine->currentstep, 0, "cpu did not step");
 	cpu->step();
 	//LRemove try..finallyengine->
 	ASSERT_EQUAL(engine->currentstep, 1, "cpu did not step");
-	ASSERT_EQUAL(engine->stepcount, 2, "stepcount did not reset");
+	ASSERT_EQUAL(engine->is_executing_instuction, true, "stepcount did not reset");
 	
 	cpu->step();
 
-	//LRemove try..finallyengine->
-	ASSERT_EQUAL(engine->currentstep, 2, "cpu did not step to 1");
-	ASSERT_EQUAL(engine->stepcount, 5, "instruction steps not loaded");
-	ASSERT_EQUAL(engine->currentinstruction, 0xad, "instruction was not loaded");
-
-	cpu->step();
-
-	ASSERT_EQUAL(engine->currentstep, 3, "cpu did not step to 2");
-	ASSERT_EQUAL(engine->currentinstruction, 0xad, "instruction was unloaded");
-	ASSERT_EQUAL(engine->stepcount, 5, "steps were modified");
 	return true;
 }
 

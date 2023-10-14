@@ -1,5 +1,5 @@
-#ifndef OPCODES_H
-#define OPCODES_H
+#ifndef CORE_OPCODES_H
+#define CORE_OPCODES_H
 
 #include "../api/numbers.h"
 #include <vector>

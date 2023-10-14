@@ -1,5 +1,5 @@
-#ifndef MACHINTESTS_H
-#define MACHINTESTS_H
+#ifndef TEST_CORE_MACHINTESTS_H
+#define TEST_CORE_MACHINTESTS_H
 
 #include "../framework/testbase.h"
 

@@ -1,3 +1,5 @@
+#ifndef TEST_FRAMEWORK_TESTRUNRESULT_H
+#define TEST_FRAMEWORK_TESTRUNRESULT_H
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -51,3 +53,5 @@ struct TestRunResult {
     private:
         std::unordered_map<std::string, bool> testresults = std::unordered_map<std::string, bool>();
 };
+
+#endif

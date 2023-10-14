@@ -3,7 +3,13 @@
 void InstructionStep::execute(Cpu* cpu) {
     Log::info("executing microcode step " + std::to_string(this->stepid));
     for (auto& expression : expressions) {
-        expression->execute(cpu);
+        if (expression->is_condition()) {
+            if (!expression->evaluate(cpu)) {
+                break; // no more expressions for this step
+            }
+        } else {
+            expression->execute(cpu);
+        }
     }
 }
 

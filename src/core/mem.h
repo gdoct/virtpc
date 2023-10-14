@@ -1,5 +1,7 @@
-#ifndef MEM_H
-#define MEM_H
+#ifndef CORE_MEM_H
+#define CORE_MEM_H
+
+
 #include <iostream>
 #include <string>
 #include <vector>

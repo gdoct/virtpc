@@ -1,5 +1,5 @@
-#ifndef STEPEXPRESSION_H
-#define STEPEXPRESSION_H
+#ifndef MICROCODE_STEPEXPRESSION_H
+#define MICROCODE_STEPEXPRESSION_H
 
 #include <string>
 #include <unordered_map>
@@ -45,14 +45,13 @@ public:
 
     // execute the step on the cpu
     void execute(Cpu* cpu);
-
+    bool evaluate(Cpu* cpu);
+    bool is_condition();
 private:
     OperatorType operatorType;
     GenericGetter lhs_getter;
     GenericSetter lhs_setter;
     GenericGetter rhs_getter;
-    bool is_true();
-    bool is_condition();
 };
 
 #endif

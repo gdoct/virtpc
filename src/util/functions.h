@@ -1,5 +1,5 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef UTIL_FUNCTIONS_H
+#define UTIL_FUNCTIONS_H
 
 #include <cctype>
 #include <algorithm>

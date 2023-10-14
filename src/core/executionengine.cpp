@@ -21,6 +21,7 @@ void ExecutionEngine::step(Cpu* cpu) {
             if (is_interrupt_raised) {
                 handleInterrupt();
             } else {
+                this->is_executing_instuction = true;
                 auto mem = cpu->get_memory();
                 std::string reg = "pc";
                 Word pc = cpu->get_register_word(reg);
@@ -34,24 +35,21 @@ void ExecutionEngine::step(Cpu* cpu) {
         {
             // decode
             auto& steps = this->microcode[this->currentinstruction];
-            this->stepcount = steps.size() + 2;
+            if (steps.size() == 0) {
+                Log::error("no microcode defined for instruction " + std::to_string(this->currentinstruction));
+            } 
             break;
         }
         default:
         {
             // execute
-            int curstep = static_cast<int>(currentstep - 2);
+            auto curstep = currentstep - 2;
             auto& mc = this->microcode[this->currentinstruction];
             if (mc.size() <= curstep) {
-                // error
-                if (mc.size() ==0) {
-                    Log::error("no microcode defined for instruction " + std::to_string(this->currentinstruction));
-                } else {
-                    Log::error("insufficient microcode defined for instruction " + std::to_string(this->currentinstruction) + ", step "+ std::to_string(this->currentstep));
-                }
+                // no more instructions
                 this->currentstep = 0;
-                this->stepcount = 2;
-                return;
+                this->is_executing_instuction = false;
+                break;
             }
 
             for(auto& microstep : mc[curstep].expressions) {
@@ -61,18 +59,15 @@ void ExecutionEngine::step(Cpu* cpu) {
         }
     }
     
-    this->currentstep++;
-    if (this->currentstep > stepcount) {
+    if (this->is_executing_instuction) {
+        this->currentstep++;
+    } else {
         this->currentstep = 0;
-        this->stepcount = 2;
     }
 }
 
 void handleInterrupt() {
     throw std::bad_function_call();
-}
-
-void ExecutionEngine::raise_interrupt(Word isr_address) {
 /**
  * An interrupt on a 6502 CPU can be broken down into the following micro steps:
     1. Interrupt Request (IRQ) or Non-Maskable Interrupt (NMI) Signal: The interrupt process begins when an IRQ or NMI signal is received1.
@@ -84,8 +79,19 @@ void ExecutionEngine::raise_interrupt(Word isr_address) {
     7. Pull Processor Status (P) and Program Counter (PC) from Stack: After the ISR is completed, the P and PC are pulled from the stack1. This restores the CPU to its state before the interrupt occurred.
     8. Return from Interrupt (RTI): The RTI instruction is executed2, signaling the end of the interrupt process. The CPU resumes executing instructions from where it left off before the interrupt occurred.
   Each of these steps occurs over one or more clock cycles, with some steps like executing the ISR potentially taking many cycles depending on the complexity of the routine2.
- * 
+ *
+ todo:
+ push status and pc to stack
+ set ir_disable
+ set pc to address with irq
+ excecute instructions 
+ rti instruction
+ pop pc and status from stack 
+restore normal flow
 */
+}
+
+void ExecutionEngine::raise_interrupt(Word isr_address) {
     if (!this->is_interrupt_raised && !this->is_servicing_interrupt) {
         this->is_interrupt_raised = true;
         this->interrupt_address = isr_address;

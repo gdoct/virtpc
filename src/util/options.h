@@ -1,5 +1,5 @@
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef UTIL_OPTIONS_H
+#define UTIL_OPTIONS_H
 
 #include "logger.h"
 

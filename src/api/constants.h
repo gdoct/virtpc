@@ -1,6 +1,5 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
-
+#ifndef API_CONSTANTS_H
+#define API_CONSTANTS_H
 #include <string>
 
 #ifdef _MSC_VER

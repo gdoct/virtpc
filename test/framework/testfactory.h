@@ -1,3 +1,6 @@
+#ifndef TEST_FRAMEWORK_TESTFACTORY_H
+#define TEST_FRAMEWORK_TESTFACTORY_H
+
 #include <iostream>
 #include <map>
 #include <memory>
@@ -31,3 +34,5 @@ public:
         }
     }
 };
+
+#endif

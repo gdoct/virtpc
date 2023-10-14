@@ -1,5 +1,5 @@
-#ifndef MACHINE_H
-#define MACHINE_H
+#ifndef CORE_MACHINE_H
+#define CORE_MACHINE_H
 #include "cpu.h"
 #include "clock.h"
 #include "mem.h"
